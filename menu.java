@@ -6,8 +6,9 @@ import java.util.*;
 public class menu{
 	public static void main(String[] args){
 		Scanner input = new Scanner(System.in);
-		int optionprincipal,optionsecundaria, codigo, carga_horaria;
-		String nome;
+		int optionprincipal,optionsecundaria, codigo, carga_horaria, i;
+		String nome,procurar;
+		boolean check;
 		LinkedList <disciplina> disciplinas = new LinkedList<disciplina>();
 		LinkedList <curso_professor> professores = new LinkedList<curso_professor>();
 		LinkedList <curso_professor> cursos = new LinkedList<curso_professor>();
@@ -44,6 +45,21 @@ public class menu{
 							case 1: // Cadastro professor
 								System.out.print("\n\tInsira o nome do professor:");
 								nome = input.next();
+								System.out.println();
+								System.out.print("\n\tInsira o carga horária do professor:");
+								carga_horaria = input.nextInt();
+								System.out.println();
+								System.out.print("\n\tInsira o código do professor:");
+								codigo = input.nextInt();
+								System.out.println();
+
+								aux_professor = new curso_professor(nome,carga_horaria,codigo);
+
+								/*
+								fazer a coleta das disciplinas -> conferir se existem disciplinas (senão ja cadastra sem disciplinas), coletar do usuário, verificar se existe, adicionar
+								*/
+								
+								professores.add(aux_professor);
 								break;
 							case 2: // Consulta professor
 								break;
@@ -67,6 +83,43 @@ public class menu{
 						}while(optionsecundaria > 5 || optionsecundaria < 1);
 						switch (optionsecundaria){
 							case 1: // Cadastro aluno
+								if(cursos.size() != 0){
+									System.out.print("\n\tInsira o nome do aluno:");
+									nome = input.next();
+									System.out.println();
+									System.out.print("\n\tInsira o carga horária do aluno:");
+									carga_horaria = input.nextInt();
+									System.out.println();
+									System.out.print("\n\tInsira o código do aluno:");
+									codigo = input.nextInt();
+									System.out.println();
+
+									System.out.print("\n\tInsira o nome do curso do aluno:");
+									procurar = input.next();
+									System.out.println();
+
+									for(check = false, i = 0; i < cursos.size(); i++){ // procura na lista de cursos, se o curso existe
+										aux_curso = cursos.get(i);
+										if(procurar.equals(aux_curso.get_nome())){
+											check = true;
+											break;
+										}
+									}
+									if(check){ // encontrou o curso na lista
+										aux_aluno = new aluno(nome,carga_horaria,codigo,aux_curso);
+									}
+									else{ // não encontrou o curso na lista
+										aux_aluno = new aluno(nome,carga_horaria,codigo);
+									}
+									/*
+									fazer a coleta das disciplinas -> conferir se existem disciplinas (senão ja cadastra sem disciplinas), coletar do usuário, verificar se existe, adicionar
+									*/
+								}
+								else{ // não existe cursos na lista
+									System.out.println("\n\tCadastre um curso para atualizar o cadastro do aluno (aluno cadastrado sem informações).");
+									aux_aluno = new aluno();
+								}
+								alunos.add(aux_aluno);
 								break;
 							case 2: // Consulta aluno
 								break;
@@ -90,6 +143,23 @@ public class menu{
 						}while(optionsecundaria > 5 || optionsecundaria < 1);
 						switch (optionsecundaria){
 							case 1: // Cadastro curso
+								System.out.print("\n\tInsira o nome do curso:");
+								nome = input.next();
+								System.out.println();
+								System.out.print("\n\tInsira o carga horária do curso:");
+								carga_horaria = input.nextInt();
+								System.out.println();
+								System.out.print("\n\tInsira o código do curso:");
+								codigo = input.nextInt();
+								System.out.println();
+
+								aux_curso = new curso_professor(nome,carga_horaria,codigo);
+
+								/*
+									fazer a coleta das disciplinas -> conferir se existem disciplinas (senão ja cadastra sem disciplinas), coletar do usuário, verificar se existe, adicionar
+								*/
+
+								cursos.add(aux_curso);
 								break;
 							case 2: // Consulta curso
 								break;
@@ -113,6 +183,19 @@ public class menu{
 						}while(optionsecundaria > 5 || optionsecundaria < 1);
 						switch (optionsecundaria){
 							case 1: // Cadastro disciplina
+								System.out.print("\n\tInsira o nome da disciplina:");
+								nome = input.next();
+								System.out.println();
+								System.out.print("\n\tInsira o carga horária da disciplina:");
+								carga_horaria = input.nextInt();
+								System.out.println();
+								System.out.print("\n\tInsira o código da disciplina:");
+								codigo = input.nextInt();
+								System.out.println();
+
+								aux_disc = new disciplina(nome,carga_horaria,codigo);
+
+								disciplinas.add(aux_disc);
 								break;
 							case 2: // Consulta disciplina
 								break;

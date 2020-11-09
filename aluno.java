@@ -12,6 +12,11 @@ public class aluno extends curso_professor{//Herança
     }
 
 
+	public aluno(String nome, int carga_horaria, int codigo){
+        super(nome, carga_horaria, codigo);
+	}
+	
+
     public aluno(){
         super();
     }

@@ -20,7 +20,7 @@ public class curso_professor extends disciplina{//Herança
 
     //Adiciona Disciplina
     public void adiciona_disc(disciplina disc){
-        disciplinas.add(disc);
+        disciplinas.add(disc); // Conferir se a disciplina não está duplicada
     }
 
     //Remoção da Disciplina
