@@ -4,11 +4,19 @@
 import java.util.*;
 
 public class menu{
-	
 	public static void main(String[] args){
 		Scanner input = new Scanner(System.in);
-		int optionprincipal,optionsecundaria;
-
+		int optionprincipal,optionsecundaria, codigo, carga_horaria;
+		String nome;
+		LinkedList <disciplina> disciplinas = new LinkedList<disciplina>();
+		LinkedList <curso_professor> professores = new LinkedList<curso_professor>();
+		LinkedList <curso_professor> cursos = new LinkedList<curso_professor>();
+		LinkedList <aluno> alunos = new LinkedList<aluno>();
+		
+		aluno aux_aluno;
+		curso_professor aux_professor;
+		curso_professor aux_curso;
+		disciplina aux_disc;
 
 		do{
 			do{ // Menu principal
@@ -34,6 +42,8 @@ public class menu{
 						}while(optionsecundaria > 5 || optionsecundaria < 1);
 						switch (optionsecundaria){
 							case 1: // Cadastro professor
+								System.out.print("\n\tInsira o nome do professor:");
+								nome = input.next();
 								break;
 							case 2: // Consulta professor
 								break;

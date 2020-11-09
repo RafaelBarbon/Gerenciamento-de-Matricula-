@@ -42,7 +42,7 @@ public class curso_professor extends disciplina{//Herança
 
     public void exibe_disc(){
         for(disciplina aux : disciplinas){ 
-            System.out.printf("\t%s\n", aux.get_nome());
+            aux.exibe();
         }
     }
 
