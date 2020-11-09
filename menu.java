@@ -1,7 +1,6 @@
 //Henrique Sartori Siqueira 					19240472
 //Rafael Silva Barbon 							19243633
 
-import java.util.Scanner;
 import java.util.*;
 
 public class menu{
