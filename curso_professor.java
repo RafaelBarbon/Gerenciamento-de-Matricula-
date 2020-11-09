@@ -20,7 +20,20 @@ public class curso_professor extends disciplina{//Herança
 
     //Adiciona Disciplina
     public void adiciona_disc(disciplina disc){
-        disciplinas.add(disc); // Conferir se a disciplina não está duplicada
+        boolean exist = false;
+		for(disciplina discip : this.disciplinas){//Verifica se o professor já possui a discplina cadastrada
+			if(discip.get_nome().equals(disc.get_nome())){
+				exist = true;
+				break;
+			}
+		}
+		if(!exist){
+            disciplinas.add(disc);
+            System.out.println("\n\tDisciplina cadastrada com sucesso");
+        }
+        else{
+		    System.out.println("\n\tDisciplina já cadastrada!");
+        }
     }
 
     //Remoção da Disciplina

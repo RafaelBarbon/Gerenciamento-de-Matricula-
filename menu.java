@@ -9,6 +9,7 @@ public class menu{
 		int optionprincipal,optionsecundaria, codigo, carga_horaria, i;
 		String nome,procurar;
 		boolean check;
+		boolean subfound;
 		LinkedList <disciplina> disciplinas = new LinkedList<disciplina>();
 		LinkedList <curso_professor> professores = new LinkedList<curso_professor>();
 		LinkedList <curso_professor> cursos = new LinkedList<curso_professor>();
@@ -58,7 +59,23 @@ public class menu{
 								/*
 								fazer a coleta das disciplinas -> conferir se existem disciplinas (senão ja cadastra sem disciplinas), coletar do usuário, verificar se existe, adicionar
 								*/
-								
+								nome = "\0";
+								while(!(nome.equals("menu")) && disciplinas.size() != 0){
+									System.out.print("\n\tInsira uma Disciplina (Digite \"menu\" para sair):");
+									nome = input.next();
+									subfound = false;
+									for(disciplina discip : disciplinas){// Verifica a existencia da discplina na lista de disciplinas
+										if(discip.get_nome().equals(nome)){ 
+											aux_professor.adiciona_disc(discip);
+											subfound = true;
+											break;
+										}
+									}
+									if(!subfound && !(nome.equals("menu"))){
+										System.out.print("\n\tDisciplina não encontrada");
+									}
+								}
+
 								professores.add(aux_professor);
 								break;
 							case 2: // Consulta professor
