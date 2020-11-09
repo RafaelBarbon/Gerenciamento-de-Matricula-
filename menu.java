@@ -9,7 +9,7 @@ public class menu{
 		int optionprincipal,optionsecundaria, codigo, carga_horaria, i;
 		String nome,procurar;
 		boolean check;
-		boolean subfound;
+		boolean subfound, proffound, studentfound;
 		LinkedList <disciplina> disciplinas = new LinkedList<disciplina>();
 		LinkedList <curso_professor> professores = new LinkedList<curso_professor>();
 		LinkedList <curso_professor> cursos = new LinkedList<curso_professor>();
@@ -56,29 +56,41 @@ public class menu{
 
 								aux_professor = new curso_professor(nome,carga_horaria,codigo);
 
-								/*
-								fazer a coleta das disciplinas -> conferir se existem disciplinas (senão ja cadastra sem disciplinas), coletar do usuário, verificar se existe, adicionar
-								*/
 								nome = "\0";
 								while(!(nome.equals("menu")) && disciplinas.size() != 0){
 									System.out.print("\n\tInsira uma Disciplina (Digite \"menu\" para sair):");
 									nome = input.next();
-									subfound = false;
-									for(disciplina discip : disciplinas){// Verifica a existencia da discplina na lista de disciplinas
-										if(discip.get_nome().equals(nome)){ 
-											aux_professor.adiciona_disc(discip);
-											subfound = true;
-											break;
+									if(!(nome.equals("menu"))){
+										subfound = false;
+										for(disciplina discip : disciplinas){// Verifica a existencia da discplina na lista de disciplinas
+											if(discip.get_nome().equals(nome)){ 
+												aux_professor.adiciona_disc(discip);
+												subfound = true;
+												break;
+											}
 										}
-									}
-									if(!subfound && !(nome.equals("menu"))){
-										System.out.print("\n\tDisciplina não encontrada");
+										if(!subfound){
+											System.out.print("\n\tDisciplina não encontrada");
+										}
 									}
 								}
 
 								professores.add(aux_professor);
 								break;
 							case 2: // Consulta professor
+								System.out.print("\n\tInsira o nome do professor a ser buscado: ");
+								nome = input.next();
+								proffound = false;
+								for(curso_professor prof : professores){// Verifica a existencia do professor na lista de professores
+									if(prof.get_nome().equals(nome)){ 
+										prof.exibe(false);
+										proffound = true;
+										break;
+									}
+								}
+								if(!proffound){
+									System.out.println("\n\tProfessor não encontrado.");
+								}
 								break;
 							case 3: // Remove professor
 								break;
@@ -139,6 +151,19 @@ public class menu{
 								alunos.add(aux_aluno);
 								break;
 							case 2: // Consulta aluno
+								System.out.print("\n\tInsira o nome do aluno a ser buscado: ");
+								nome = input.next();
+								studentfound = false;
+								for(aluno stud : alunos){// Verifica a existencia do aluno na lista de alunos
+									if(stud.get_nome().equals(nome)){ 
+										stud.exibe();
+										studentfound = true;
+										break;
+									}
+								}
+								if(!studentfound){
+									System.out.println("\n\tAluno não encontrado.");
+								}
 								break;
 							case 3: // Remove aluno
 								break;
@@ -172,13 +197,31 @@ public class menu{
 
 								aux_curso = new curso_professor(nome,carga_horaria,codigo);
 
-								/*
-									fazer a coleta das disciplinas -> conferir se existem disciplinas (senão ja cadastra sem disciplinas), coletar do usuário, verificar se existe, adicionar
-								*/
-
+								nome = "\0";
+								while(!(nome.equals("menu")) && disciplinas.size() != 0){
+									System.out.print("\n\tInsira uma Disciplina (Digite \"menu\" para sair):");
+									nome = input.next();
+									if(!(nome.equals("menu"))){
+										subfound = false;
+										for(disciplina discip : disciplinas){// Verifica a existencia da discplina na lista de disciplinas
+											if(discip.get_nome().equals(nome)){ 
+												aux_curso.adiciona_disc(discip);
+												subfound = true;
+												break;
+											}
+										}
+										if(!subfound){
+											System.out.print("\n\tDisciplina não encontrada");
+										}
+									}
+								}
 								cursos.add(aux_curso);
 								break;
 							case 2: // Consulta curso
+								for(curso_professor curso : cursos){// Exibe todos os cursos cadastrados
+									curso.exibe(false);
+									System.out.println();
+								}
 								break;
 							case 3: // Remove curso
 								break;
@@ -215,6 +258,19 @@ public class menu{
 								disciplinas.add(aux_disc);
 								break;
 							case 2: // Consulta disciplina
+								System.out.print("\n\tInsira o nome da disciplina a ser buscada: ");
+								nome = input.next();
+								subfound = false;
+								for(disciplina disc : disciplinas){// Verifica a existencia da disciplina na lista de disciplinas
+									if(disc.get_nome().equals(nome)){ 
+										disc.exibe();
+										subfound = true;
+										break;
+									}
+								}
+								if(!subfound){
+									System.out.println("\n\tDisciplina não encontrada.");
+								}
 								break;
 							case 3: // Remove disciplina
 								break;
