@@ -17,7 +17,7 @@ public class menu{
 		
 		aluno aux_aluno;
 		curso_professor aux_professor;
-		curso_professor aux_curso;
+		curso_professor aux_curso = null;
 		disciplina aux_disc;
 
 		do{
@@ -46,6 +46,7 @@ public class menu{
 							case 1: // Cadastro professor
 								System.out.print("\n\tInsira o nome do professor:");
 								nome = input.next();
+								nome = nome.toUpperCase();
 								System.out.println();
 								System.out.print("\n\tInsira o carga horária do professor:");
 								carga_horaria = input.nextInt();
@@ -58,8 +59,13 @@ public class menu{
 
 								nome = "\0";
 								while(!(nome.equals("menu")) && disciplinas.size() != 0){
+									System.out.println();
+									for(disciplina aux : disciplinas){//Lista as disciplinas existetes na lista de disciplinas 
+										System.out.printf("\t%s",aux.get_nome());
+									}
 									System.out.print("\n\tInsira uma Disciplina (Digite \"menu\" para sair):");
 									nome = input.next();
+									nome = nome.toUpperCase();
 									if(!(nome.equals("menu"))){
 										subfound = false;
 										for(disciplina discip : disciplinas){// Verifica a existencia da discplina na lista de disciplinas
@@ -80,6 +86,7 @@ public class menu{
 							case 2: // Consulta professor
 								System.out.print("\n\tInsira o nome do professor a ser buscado: ");
 								nome = input.next();
+								nome = nome.toUpperCase();
 								proffound = false;
 								for(curso_professor prof : professores){// Verifica a existencia do professor na lista de professores
 									if(prof.get_nome().equals(nome)){ 
@@ -115,6 +122,7 @@ public class menu{
 								if(cursos.size() != 0){
 									System.out.print("\n\tInsira o nome do aluno:");
 									nome = input.next();
+									nome = nome.toUpperCase();
 									System.out.println();
 									System.out.print("\n\tInsira o carga horária do aluno:");
 									carga_horaria = input.nextInt();
@@ -125,6 +133,7 @@ public class menu{
 
 									System.out.print("\n\tInsira o nome do curso do aluno:");
 									procurar = input.next();
+									nome = nome.toUpperCase();
 									System.out.println();
 
 									for(check = false, i = 0; i < cursos.size(); i++){ // procura na lista de cursos, se o curso existe
@@ -136,13 +145,27 @@ public class menu{
 									}
 									if(check){ // encontrou o curso na lista
 										aux_aluno = new aluno(nome,carga_horaria,codigo,aux_curso);
+										nome = "\0";
+										System.out.println();
+										while(!(nome.equals("menu")) && disciplinas.size() != 0){
+											aux_curso.lista_disc_curso();
+											System.out.print("\n\tInsira uma Disciplina (Digite \"menu\" para sair):");
+											nome = input.next();
+											nome = nome.toUpperCase();
+											if(!(nome.equals("menu"))){
+												aux_disc = aux_curso.procura_discp_curso(nome);//Procura se a disciplina existe no curso(Retorna o obj. ou null se não existe); 
+												if(aux_disc == null){
+													System.out.print("\n\tDisciplina não encontrada no curso!");
+												}else{
+													aux_aluno.adiciona_disc(aux_disc); 
+												}
+											}
+										}
 									}
 									else{ // não encontrou o curso na lista
 										aux_aluno = new aluno(nome,carga_horaria,codigo);
+										System.out.print("\n\t Aluno cadastrado sem curso!");
 									}
-									/*
-									fazer a coleta das disciplinas -> conferir se existem disciplinas (senão ja cadastra sem disciplinas), coletar do usuário, verificar se existe, adicionar
-									*/
 								}
 								else{ // não existe cursos na lista
 									System.out.println("\n\tCadastre um curso para atualizar o cadastro do aluno (aluno cadastrado sem informações).");
@@ -153,6 +176,7 @@ public class menu{
 							case 2: // Consulta aluno
 								System.out.print("\n\tInsira o nome do aluno a ser buscado: ");
 								nome = input.next();
+								nome = nome.toUpperCase();
 								studentfound = false;
 								for(aluno stud : alunos){// Verifica a existencia do aluno na lista de alunos
 									if(stud.get_nome().equals(nome)){ 
@@ -187,6 +211,7 @@ public class menu{
 							case 1: // Cadastro curso
 								System.out.print("\n\tInsira o nome do curso:");
 								nome = input.next();
+								nome = nome.toUpperCase();
 								System.out.println();
 								System.out.print("\n\tInsira o carga horária do curso:");
 								carga_horaria = input.nextInt();
@@ -199,8 +224,13 @@ public class menu{
 
 								nome = "\0";
 								while(!(nome.equals("menu")) && disciplinas.size() != 0){
+									System.out.println();
+									for(disciplina aux : disciplinas){//Lista as disciplinas existetes na lista de disciplinas 
+										System.out.printf("\t%s",aux.get_nome());
+									}
 									System.out.print("\n\tInsira uma Disciplina (Digite \"menu\" para sair):");
 									nome = input.next();
+									nome = nome.toUpperCase();
 									if(!(nome.equals("menu"))){
 										subfound = false;
 										for(disciplina discip : disciplinas){// Verifica a existencia da discplina na lista de disciplinas
@@ -245,6 +275,7 @@ public class menu{
 							case 1: // Cadastro disciplina
 								System.out.print("\n\tInsira o nome da disciplina:");
 								nome = input.next();
+								nome = nome.toUpperCase();
 								System.out.println();
 								System.out.print("\n\tInsira o carga horária da disciplina:");
 								carga_horaria = input.nextInt();
@@ -260,6 +291,7 @@ public class menu{
 							case 2: // Consulta disciplina
 								System.out.print("\n\tInsira o nome da disciplina a ser buscada: ");
 								nome = input.next();
+								nome = nome.toUpperCase();
 								subfound = false;
 								for(disciplina disc : disciplinas){// Verifica a existencia da disciplina na lista de disciplinas
 									if(disc.get_nome().equals(nome)){ 

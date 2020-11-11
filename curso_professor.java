@@ -69,4 +69,19 @@ public class curso_professor extends disciplina{//Herança
             exibe_disc();
         }
     }
+
+    public disciplina procura_discp_curso(String nome){//Procura se a disciplina existe no curso 
+        for(disciplina disc : this.disciplinas){
+            if(disc.get_nome().equals(nome)){
+                return disc;
+            }
+        }
+        return null;
+    }
+
+    public void lista_disc_curso(){ 
+        for(disciplina aux : this.disciplinas){ 
+            System.out.printf("\t%s",aux.get_nome());
+        }
+    }
 }
