@@ -3,7 +3,7 @@
 
 public class aluno extends curso_professor{//Herança 
     
-    curso_professor curso;
+    private curso_professor curso;
 
     //Contrutores 
     public aluno(String nome, int carga_horaria, int codigo, curso_professor curso){
@@ -25,19 +25,23 @@ public class aluno extends curso_professor{//Herança
         this.curso = curso;
     }
 
-    //###VERFICAR
-    public void get_curso(){
-        curso.exibe(true);
+    public curso_professor get_curso(){
+		return this.curso;
     }
 
     //Exibição das informações na tela 
     @Override 
     public void exibe(){
-        System.out.printf("\n\n\tNome: %s", get_nome());
-        System.out.printf("\n\tCódigo: %d", get_codigo());
-        System.out.printf("\n\tCarga Horária: %d horas", get_carga_horaria());
-        System.out.printf("\n\tCurso:");
-        get_curso();
+        System.out.printf("\n\n\tNome: %s.", get_nome());
+        System.out.printf("\n\tCódigo: %d.", get_codigo());
+		System.out.printf("\n\tCarga Horária: %d horas.", get_carga_horaria());
+		System.out.printf("\n\tCurso:");
+		if(curso != null){
+			curso.exibe(true);
+		}
+		else{
+			System.out.print(" Inexistente.");
+		}		
         System.out.println("\n\tDisciplinas:");
         exibe_disc();
     }
