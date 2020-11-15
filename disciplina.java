@@ -54,5 +54,9 @@ public class disciplina {
 	
 	public void exibe_codigo_nome(){
 		System.out.printf("\t%s - %d", this.get_nome(), this.get_codigo());
-	}
+    }
+    
+    public String toString(){
+        return String.format("%s - %d", this.nome, this.codigo);
+    }
 }

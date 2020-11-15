@@ -4,9 +4,15 @@
 import java.util.*;
 
 public class menu{
+	public static <T> void printa(LinkedList <T> lista){
+		for(T li : lista){
+			System.out.printf("\t%s", li);
+		}
+	}
+	
 	public static void main(String[] args){
 		Scanner input = new Scanner(System.in);
-		int optionprincipal,optionsecundaria, codigo, carga_horaria, i, procurar;
+		int optionprincipal,optionsecundaria, codigo, carga_horaria, i, procurar, aux_att;
 		String nome;
 		boolean subfound, proffound, studentfound, check, cursofound;
 		LinkedList <disciplina> disciplinas = new LinkedList<disciplina>();
@@ -130,7 +136,88 @@ public class menu{
 									System.out.println("\n\tProfessor não encontrado.");
 								}
 								break;
-							case 4: // Aualizar professor
+							case 4: // Atualizar professor
+								for(curso_professor professor : professores){// Exibe todos os professores cadastrados
+									professor.exibe_codigo_nome();
+									System.out.println();
+								}
+								System.out.print("\n\tInsira o código do professor a ser atualizado: ");
+								codigo = input.nextInt();
+								proffound = false;
+								for(curso_professor prof : professores){// Verifica a existência do professor na lista de professores
+									if(prof.get_codigo() == codigo){ 
+										proffound = true;
+										do{
+												do{
+													prof.exibe(false);
+													System.out.println("\n\t Atualizar:");
+													System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
+													System.out.println("\t5. Adicionar Disciplinas; 6. Voltar;");
+													System.out.print("->");
+													aux_att = input.nextInt();
+												}while(aux_att < 1 || aux_att > 6);
+											switch(aux_att){
+												case 1:
+													System.out.print("\n\tInsira o novo nome:\n\t->");
+													nome = input.nextLine();
+													nome = input.nextLine();
+													nome = nome.toUpperCase();
+													prof.set_nome(nome);
+													System.out.println("\n\tNome atualizado com sucesso!");
+													break;
+												case 2:
+													System.out.print("\n\tInsira a nova carga horária:\n\t->");
+													carga_horaria = input.nextInt();
+													prof.set_carga_horaria(carga_horaria);
+													System.out.println("\n\tCarga Horária atualizado com sucesso!");
+													break;
+												case 3:
+													System.out.print("\n\tInsira o novo código:\n\t->");
+													codigo = input.nextInt();
+													do{//Confere se já não existe algum professor o novo código inserido;
+														check = false;
+														for(curso_professor pro : professores){
+															if(codigo == pro.get_codigo()){
+																System.out.print("\n\tCódigo existente! Insira um novo código do professor:");
+																codigo = input.nextInt();
+																check = true;
+																break;
+															}
+														}
+													}while(check);
+													prof.set_codigo(codigo);
+													System.out.println("\n\tCódigo atualizado com sucesso!");
+													break;
+												case 4://Remove Disciĺina 
+													System.out.print("\n\tInsira o código da disciplina a ser removida:\n\t->");
+													codigo = input.nextInt();
+													for(disciplina d : disciplinas){
+														if(d.get_codigo() == codigo){	
+															prof.remove_disc(d);
+															break;
+														}
+													}
+													System.out.println("\n\tDisciplina Removida com sucesso!");
+													break;
+												case 5://Adiciona Disciplina
+													System.out.print("\n\tInsira o código da disciplina a ser adicionada:\n\t->");
+													codigo = input.nextInt();
+													for(disciplina d: disciplinas){
+														if(d.get_codigo() == codigo){	
+															prof.adiciona_disc(d);
+															break;
+														}
+													}
+													System.out.print("\n\tDisciplina adicionada com sucesso!");
+													break;
+											}
+										}while(aux_att != 6);
+									}
+										break;
+								}
+								if(!proffound){
+									System.out.println("\n\tProfessor não encontrado.");
+								}
 								break;
 						}
 					}while(optionsecundaria < 5 && optionsecundaria > 0);
@@ -256,6 +343,90 @@ public class menu{
 								}
 								break;
 							case 4: // Aualizar aluno
+								for(curso_professor professor : professores){// Exibe todos os professores cadastrados
+									professor.exibe_codigo_nome();
+									System.out.println();
+								}
+								System.out.print("\n\tInsira o código do professor a ser atualizado: ");
+								codigo = input.nextInt();
+								proffound = false;
+								for(curso_professor prof : professores){// Verifica a existência do professor na lista de professores
+									if(prof.get_codigo() == codigo){ 
+										proffound = true;
+										do{
+											do{
+												prof.exibe(false);
+												System.out.println("\n\t Atualizar:");
+												System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
+												System.out.println("\t5. Adicionar Disciplinas;\n\t6. Atualizar Curso;\n\t7. Voltar;");
+												System.out.print("->");
+												aux_att = input.nextInt();
+											}while(aux_att < 1 || aux_att > 6);
+											switch(aux_att){
+												case 1:
+													System.out.print("\n\tInsira o novo nome:\n\t->");
+													nome = input.nextLine();
+													nome = input.nextLine();
+													nome = nome.toUpperCase();
+													prof.set_nome(nome);
+													System.out.println("\n\tNome atualizado com sucesso!");
+													break;
+												case 2:
+													System.out.print("\n\tInsira a nova carga horária:\n\t->");
+													carga_horaria = input.nextInt();
+													prof.set_carga_horaria(carga_horaria);
+													System.out.println("\n\tCarga Horária atualizado com sucesso!");
+													break;
+												case 3:
+													System.out.print("\n\tInsira o novo código:\n\t->");
+													codigo = input.nextInt();
+													do{//Confere se já não existe algum professor o novo código inserido;
+														check = false;
+														for(curso_professor pro : professores){
+															if(codigo == pro.get_codigo()){
+																System.out.print("\n\tCódigo existente! Insira um novo código do professor:");
+																codigo = input.nextInt();
+																check = true;
+																break;
+															}
+														}
+													}while(check);
+													prof.set_codigo(codigo);
+													System.out.println("\n\tCódigo atualizado com sucesso!");
+													break;
+												case 4://Remove Disciĺina 
+													System.out.print("\n\tInsira o código da disciplina a ser removida:\n\t->");
+													codigo = input.nextInt();
+													for(disciplina d : disciplinas){
+														if(d.get_codigo() == codigo){	
+															prof.remove_disc(d);
+															break;
+														}
+													}
+													System.out.println("\n\tDisciplina Removida com sucesso!");
+													break;
+												case 5://Adiciona Disciplina
+													printa(disciplinas);
+													System.out.print("\n\tInsira o código da disciplina a ser adicionada:\n\t->");
+													codigo = input.nextInt();
+													for(disciplina d: disciplinas){
+														if(d.get_codigo() == codigo){	
+															.adiciona_disc(d);
+															break;
+														}
+													}
+													System.out.print("\n\tDisciplina adicionada com sucesso!");
+													break;
+												case 6://Atualiza Curso 
+													System.out.print("\n\tInsira o código do curso:");
+											}
+										}while(aux_att != 7);
+									}
+									break;
+								}
+								if(!proffound){
+									System.out.println("\n\tProfessor não encontrado.");
+								}
 								break;
 						}
 					}while(optionsecundaria < 5 && optionsecundaria > 0);
@@ -354,7 +525,8 @@ public class menu{
 									}
 								}
 								break;
-							case 4: // Aualizar curso
+							case 4: // Atualizar curso
+								
 								break;
 						}
 					}while(optionsecundaria < 5 && optionsecundaria > 0);
