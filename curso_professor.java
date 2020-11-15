@@ -52,7 +52,17 @@ public class curso_professor extends disciplina{//Herança
 			}
 		}*/
 		disciplinas.remove(disc);
-    }
+	}
+	
+	public void att_disc(disciplina disc, int codigo){
+		for(disciplina d : disciplinas){
+			if(d.get_codigo() == codigo){
+				disciplinas.remove(d);
+				disciplinas.add(disc);
+				break;
+			}
+		}
+	}
 
     public void exibe_disc(){
         for(disciplina aux : disciplinas){ 
@@ -62,13 +72,16 @@ public class curso_professor extends disciplina{//Herança
 
     //Exibição das informações na tela  
     public void exibe(boolean aluno){
-        System.out.printf("\n\n\tNome: %s.", get_nome());
+        System.out.printf("\n\tNome: %s.", get_nome());
         System.out.printf("\n\tCódigo: %d.", get_codigo());
         System.out.printf("\n\tCarga Horária: %d horas.", get_carga_horaria());
         if(!aluno){
             System.out.println("\n\tDisciplinas:");
             exibe_disc();
-        }
+		}
+		else{
+			System.out.println();
+		}
     }
 
     public disciplina procura_discp_curso(int codigo){// Procura se a disciplina existe no curso 
@@ -80,9 +93,9 @@ public class curso_professor extends disciplina{//Herança
         return null;
     }
 
-    public void lista_disc_curso(){ 
+    public void lista_disc(){ 
         for(disciplina aux : this.disciplinas){ 
-            aux.exibe_codigo_nome();
+            System.out.printf("\t%s",aux);
         }
 	}
 	

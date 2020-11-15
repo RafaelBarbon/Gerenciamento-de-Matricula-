@@ -4,17 +4,12 @@
 import java.util.*;
 
 public class menu{
-	public static <T> void printa(LinkedList <T> lista){
-		for(T li : lista){
-			System.out.printf("\t%s", li);
-		}
-	}
 	
 	public static void main(String[] args){
 		Scanner input = new Scanner(System.in);
-		int optionprincipal,optionsecundaria, codigo, carga_horaria, i, procurar, aux_att;
-		String nome;
-		boolean subfound, proffound, studentfound, check, cursofound;
+		int optionprincipal = 0,optionsecundaria = 0, codigo = 0, carga_horaria = 0, i = 0, procurar = 0, aux_att = 0;
+		String nome = "\0";
+		boolean subfound = false, proffound = false, studentfound = false, check = false, cursofound = false;
 		LinkedList <disciplina> disciplinas = new LinkedList<disciplina>();
 		LinkedList <curso_professor> professores = new LinkedList<curso_professor>();
 		LinkedList <curso_professor> cursos = new LinkedList<curso_professor>();
@@ -38,12 +33,7 @@ public class menu{
 				case 1: // Submenu Professor
 					do{
 						do{
-							System.out.println("\n1. Cadastrar Professor;");
-							System.out.println("\n2. Consultar Professor;");
-							System.out.println("\n3. Remover Professor;");
-							System.out.println("\n4. Atualizar Professor;");
-							System.out.println("\n5. MENUPrincipal.");
-							System.out.print("\n-> ");
+							submenu("Professor");
 							optionsecundaria = input.nextInt();
 						}while(optionsecundaria > 5 || optionsecundaria < 1);
 						switch (optionsecundaria){
@@ -76,9 +66,7 @@ public class menu{
 								codigo = -1;
 								while(codigo != 0 && disciplinas.size() != 0){
 									System.out.println();
-									for(disciplina aux : disciplinas){// Lista as disciplinas existentes na lista de disciplinas 
-										aux.exibe_codigo_nome();
-									}
+									printa(disciplinas); // Lista as disciplinas existentes na lista de disciplinas 
 									System.out.print("\n\tInsira o código de uma disciplina (Digite \"0\" para sair):");
 									codigo = input.nextInt();
 									if(codigo != 0){
@@ -99,10 +87,7 @@ public class menu{
 								professores.add(aux_professor);
 								break;
 							case 2: // Consulta professor
-								for(curso_professor professor : professores){// Exibe todos os professores cadastrados
-									professor.exibe_codigo_nome();
-									System.out.println();
-								}
+								printa(professores);// Exibe todos os professores cadastrados
 								System.out.print("\n\tInsira o código do professor a ser buscado: ");
 								codigo = input.nextInt();
 								proffound = false;
@@ -118,10 +103,7 @@ public class menu{
 								}
 								break;
 							case 3: // Remove professor
-								for(curso_professor professor : professores){// Exibe todos os professores cadastrados
-									professor.exibe_codigo_nome();
-									System.out.println();
-								}
+								printa(professores);// Exibe todos os professores cadastrados
 								System.out.print("\n\tInsira o código do professor a ser removido: ");
 								codigo = input.nextInt();
 								check = false;
@@ -137,10 +119,7 @@ public class menu{
 								}
 								break;
 							case 4: // Atualizar professor
-								for(curso_professor professor : professores){// Exibe todos os professores cadastrados
-									professor.exibe_codigo_nome();
-									System.out.println();
-								}
+								printa(professores);// Exibe todos os professores cadastrados
 								System.out.print("\n\tInsira o código do professor a ser atualizado: ");
 								codigo = input.nextInt();
 								proffound = false;
@@ -148,16 +127,16 @@ public class menu{
 									if(prof.get_codigo() == codigo){ 
 										proffound = true;
 										do{
-												do{
-													prof.exibe(false);
-													System.out.println("\n\t Atualizar:");
-													System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
-													System.out.println("\t5. Adicionar Disciplinas; 6. Voltar;");
-													System.out.print("->");
-													aux_att = input.nextInt();
-												}while(aux_att < 1 || aux_att > 6);
+											do{
+												prof.exibe(false);
+												System.out.println("\n\t Atualizar:");
+												System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
+												System.out.println("\t5. Adicionar Disciplinas;\n\t 6. Voltar;");
+												System.out.print("->");
+												aux_att = input.nextInt();
+											}while(aux_att < 1 || aux_att > 6);
 											switch(aux_att){
-												case 1:
+												case 1: // Atualiza nome
 													System.out.print("\n\tInsira o novo nome:\n\t->");
 													nome = input.nextLine();
 													nome = input.nextLine();
@@ -165,16 +144,16 @@ public class menu{
 													prof.set_nome(nome);
 													System.out.println("\n\tNome atualizado com sucesso!");
 													break;
-												case 2:
+												case 2: // Atualiza carga horário
 													System.out.print("\n\tInsira a nova carga horária:\n\t->");
 													carga_horaria = input.nextInt();
 													prof.set_carga_horaria(carga_horaria);
 													System.out.println("\n\tCarga Horária atualizado com sucesso!");
 													break;
-												case 3:
+												case 3: // Atualiza código
 													System.out.print("\n\tInsira o novo código:\n\t->");
 													codigo = input.nextInt();
-													do{//Confere se já não existe algum professor o novo código inserido;
+													do{ // Confere se já não existe algum professor o novo código inserido;
 														check = false;
 														for(curso_professor pro : professores){
 															if(codigo == pro.get_codigo()){
@@ -188,7 +167,7 @@ public class menu{
 													prof.set_codigo(codigo);
 													System.out.println("\n\tCódigo atualizado com sucesso!");
 													break;
-												case 4://Remove Disciĺina 
+												case 4: // Remove Discipĺina da lista interna do professor
 													System.out.print("\n\tInsira o código da disciplina a ser removida:\n\t->");
 													codigo = input.nextInt();
 													for(disciplina d : disciplinas){
@@ -200,6 +179,7 @@ public class menu{
 													System.out.println("\n\tDisciplina Removida com sucesso!");
 													break;
 												case 5://Adiciona Disciplina
+													printa(disciplinas);
 													System.out.print("\n\tInsira o código da disciplina a ser adicionada:\n\t->");
 													codigo = input.nextInt();
 													for(disciplina d: disciplinas){
@@ -212,8 +192,8 @@ public class menu{
 													break;
 											}
 										}while(aux_att != 6);
-									}
 										break;
+									}
 								}
 								if(!proffound){
 									System.out.println("\n\tProfessor não encontrado.");
@@ -225,12 +205,7 @@ public class menu{
 				case 2: // Submenu Aluno
 					do{
 						do{
-							System.out.println("\n1. Cadastrar Aluno;");
-							System.out.println("\n2. Consultar Aluno;");
-							System.out.println("\n3. Remover Aluno;");
-							System.out.println("\n4. Atualizar Aluno;");
-							System.out.println("\n5. MENUPrincipal.");
-							System.out.print("\n-> ");
+							submenu("Aluno");
 							optionsecundaria = input.nextInt();
 						}while(optionsecundaria > 5 || optionsecundaria < 1);
 						switch (optionsecundaria){
@@ -259,9 +234,7 @@ public class menu{
 									}while(studentfound);
 									System.out.println();
 
-									for(curso_professor curso : cursos){// Exibe todos os cursos cadastrados
-										curso.exibe_codigo_nome();
-									}
+									printa(cursos);// Exibe todos os cursos cadastrados
 
 									System.out.print("\n\tInsira o código do curso do aluno:");
 									procurar = input.nextInt();
@@ -279,7 +252,7 @@ public class menu{
 										codigo = -1;
 										System.out.println();
 										while(codigo != 0 && disciplinas.size() != 0){
-											aux_curso.lista_disc_curso();
+											aux_curso.lista_disc();
 											System.out.print("\n\tInsira uma Disciplina (Digite \"0\" para sair):");
 											codigo = input.nextInt();
 											if(codigo != 0){
@@ -305,10 +278,7 @@ public class menu{
 								alunos.add(aux_aluno);
 								break;
 							case 2: // Consulta aluno
-								for(aluno stud : alunos){// Exibe todos os alunos cadastrados
-									stud.exibe_codigo_nome();
-									System.out.println();
-								}
+								printa(alunos);// Exibe todos os alunos cadastrados
 								System.out.print("\n\tInsira o código do aluno a ser buscado: ");
 								codigo = input.nextInt();
 								studentfound = false;
@@ -324,10 +294,7 @@ public class menu{
 								}
 								break;
 							case 3: // Remove aluno
-								for(aluno stud : alunos){// Exibe todos os alunos cadastrados
-									stud.exibe_codigo_nome();
-									System.out.println();
-								}
+								printa(alunos);// Exibe todos os alunos cadastrados
 								System.out.print("\n\tInsira o código do aluno a ser removido: ");
 								codigo = input.nextInt();
 								check = false;
@@ -343,63 +310,60 @@ public class menu{
 								}
 								break;
 							case 4: // Aualizar aluno
-								for(curso_professor professor : professores){// Exibe todos os professores cadastrados
-									professor.exibe_codigo_nome();
-									System.out.println();
-								}
-								System.out.print("\n\tInsira o código do professor a ser atualizado: ");
+								printa(alunos);// Exibe todos os aluno cadastrados
+								System.out.print("\n\tInsira o código do aluno a ser atualizado: ");
 								codigo = input.nextInt();
-								proffound = false;
-								for(curso_professor prof : professores){// Verifica a existência do professor na lista de professores
-									if(prof.get_codigo() == codigo){ 
-										proffound = true;
+								studentfound = false;
+								for(aluno stud : alunos){// Verifica a existência do aluno na lista de alunos
+									if(stud.get_codigo() == codigo){ 
+										studentfound = true;
 										do{
 											do{
-												prof.exibe(false);
+												stud.exibe();
 												System.out.println("\n\t Atualizar:");
 												System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
 												System.out.println("\t5. Adicionar Disciplinas;\n\t6. Atualizar Curso;\n\t7. Voltar;");
 												System.out.print("->");
 												aux_att = input.nextInt();
-											}while(aux_att < 1 || aux_att > 6);
+											}while(aux_att < 1 || aux_att > 7);
 											switch(aux_att){
 												case 1:
 													System.out.print("\n\tInsira o novo nome:\n\t->");
 													nome = input.nextLine();
 													nome = input.nextLine();
 													nome = nome.toUpperCase();
-													prof.set_nome(nome);
+													stud.set_nome(nome);
 													System.out.println("\n\tNome atualizado com sucesso!");
 													break;
 												case 2:
 													System.out.print("\n\tInsira a nova carga horária:\n\t->");
 													carga_horaria = input.nextInt();
-													prof.set_carga_horaria(carga_horaria);
+													stud.set_carga_horaria(carga_horaria);
 													System.out.println("\n\tCarga Horária atualizado com sucesso!");
 													break;
 												case 3:
 													System.out.print("\n\tInsira o novo código:\n\t->");
 													codigo = input.nextInt();
-													do{//Confere se já não existe algum professor o novo código inserido;
+													do{//Confere se já não existe algum aluno com o novo código inserido;
 														check = false;
-														for(curso_professor pro : professores){
-															if(codigo == pro.get_codigo()){
-																System.out.print("\n\tCódigo existente! Insira um novo código do professor:");
+														for(aluno st : alunos){
+															if(codigo == st.get_codigo()){
+																System.out.print("\n\tCódigo existente! Insira um novo código do aluno:");
 																codigo = input.nextInt();
 																check = true;
 																break;
 															}
 														}
 													}while(check);
-													prof.set_codigo(codigo);
+													stud.set_codigo(codigo);
 													System.out.println("\n\tCódigo atualizado com sucesso!");
 													break;
-												case 4://Remove Disciĺina 
+												case 4://Remove Discipĺina 
 													System.out.print("\n\tInsira o código da disciplina a ser removida:\n\t->");
 													codigo = input.nextInt();
 													for(disciplina d : disciplinas){
 														if(d.get_codigo() == codigo){	
-															prof.remove_disc(d);
+															stud.remove_disc(d);
 															break;
 														}
 													}
@@ -411,21 +375,29 @@ public class menu{
 													codigo = input.nextInt();
 													for(disciplina d: disciplinas){
 														if(d.get_codigo() == codigo){	
-															.adiciona_disc(d);
+															stud.adiciona_disc(d);
 															break;
 														}
 													}
 													System.out.print("\n\tDisciplina adicionada com sucesso!");
 													break;
 												case 6://Atualiza Curso 
+													printa(cursos);
 													System.out.print("\n\tInsira o código do curso:");
+													codigo = input.nextInt();
+													for(curso_professor c: cursos){
+														if(c.get_codigo() == codigo){	
+															stud.set_curso(c);
+															break;
+														}
+													}
 											}
 										}while(aux_att != 7);
+										break;
 									}
-									break;
 								}
-								if(!proffound){
-									System.out.println("\n\tProfessor não encontrado.");
+								if(!studentfound){
+									System.out.println("\n\tAluno não encontrado.");
 								}
 								break;
 						}
@@ -434,12 +406,7 @@ public class menu{
 				case 3: // Submenu Curso
 					do{
 						do{
-							System.out.println("\n1. Cadastrar Curso;");
-							System.out.println("\n2. Consultar Curso;");
-							System.out.println("\n3. Remover Curso;");
-							System.out.println("\n4. Atualizar Curso;");
-							System.out.println("\n5. MENUPrincipal.");
-							System.out.print("\n-> ");
+							submenu("Curso");
 							optionsecundaria = input.nextInt();
 						}while(optionsecundaria > 5 || optionsecundaria < 1);
 						switch (optionsecundaria){
@@ -472,9 +439,7 @@ public class menu{
 								codigo = -1;
 								while(codigo != 0 && disciplinas.size() != 0){
 									System.out.println();
-									for(disciplina aux : disciplinas){// Lista as disciplinas existentes na lista de disciplinas 
-										aux.exibe_codigo_nome();
-									}
+									printa(disciplinas);// Lista as disciplinas existentes na lista de disciplinas 
 									System.out.print("\n\tInsira o código de uma disciplina (Digite \"0\" para sair):");
 									codigo = input.nextInt();									
 									if(codigo != 0){
@@ -500,10 +465,7 @@ public class menu{
 								}
 								break;
 							case 3: // Remove curso
-								for(curso_professor curso : cursos){// Exibe todos os cursos cadastrados
-									curso.exibe_codigo_nome();
-									System.out.println();
-								}
+								printa(cursos);// Exibe todos os cursos cadastrados
 								System.out.print("\n\tInsira o código do curso a ser removido: ");
 								codigo = input.nextInt();
 								check = false;
@@ -526,7 +488,92 @@ public class menu{
 								}
 								break;
 							case 4: // Atualizar curso
-								
+								printa(cursos);// Exibe todos os cursos cadastrados
+								System.out.print("\n\tInsira o código do curso a ser atualizado: ");
+								codigo = input.nextInt();
+								cursofound = false;
+								for(curso_professor curso : cursos){// Verifica a existência do curso na lista de cursos
+									if(curso.get_codigo() == codigo){
+										procurar = curso.get_codigo();
+										cursofound = true;
+										do{
+											do{
+												curso.exibe(false);
+												System.out.println("\n\t Atualizar:");
+												System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
+												System.out.println("\t5. Adicionar Disciplinas;\n\t 6. Voltar;");
+												System.out.print("->");
+												aux_att = input.nextInt();
+											}while(aux_att < 1 || aux_att > 6);
+											switch(aux_att){
+												case 1: // Atualiza nome
+													System.out.print("\n\tInsira o novo nome:\n\t->");
+													nome = input.nextLine();
+													nome = input.nextLine();
+													nome = nome.toUpperCase();
+													curso.set_nome(nome);
+													System.out.println("\n\tNome atualizado com sucesso!");
+													break;
+												case 2: // Atualiza carga horário
+													System.out.print("\n\tInsira a nova carga horária:\n\t->");
+													carga_horaria = input.nextInt();
+													curso.set_carga_horaria(carga_horaria);
+													System.out.println("\n\tCarga Horária atualizado com sucesso!");
+													break;
+												case 3: // Atualiza código
+													System.out.print("\n\tInsira o novo código:\n\t->");
+													codigo = input.nextInt();
+													do{ // Confere se já não existe algum curso com o novo código inserido;
+														check = false;
+														for(curso_professor c : cursos){
+															if(codigo == c.get_codigo()){
+																System.out.print("\n\tCódigo existente! Insira um novo código do curso:");
+																codigo = input.nextInt();
+																check = true;
+																break;
+															}
+														}
+													}while(check);
+													curso.set_codigo(codigo);
+													System.out.println("\n\tCódigo atualizado com sucesso!");
+													break;
+												case 4: // Remove Discipĺina da lista interna do curso
+													System.out.print("\n\tInsira o código da disciplina a ser removida:\n\t->");
+													codigo = input.nextInt();
+													for(disciplina d : disciplinas){
+														if(d.get_codigo() == codigo){	
+															curso.remove_disc(d);
+															break;
+														}
+													}
+													System.out.println("\n\tDisciplina Removida com sucesso!");
+													break;
+												case 5: // Adiciona Disciplina
+													printa(disciplinas);
+													System.out.print("\n\tInsira o código da disciplina a ser adicionada:\n\t->");
+													codigo = input.nextInt();
+													for(disciplina d: disciplinas){
+														if(d.get_codigo() == codigo){	
+															curso.adiciona_disc(d);
+															break;
+														}
+													}
+													System.out.print("\n\tDisciplina adicionada com sucesso!");
+													break;
+											}
+										}while(aux_att != 6);
+										aux_curso = curso;
+										break;
+									}
+								}
+								if(!cursofound){
+									System.out.println("\n\tCurso não encontrado.");
+								}
+								else{
+									for(aluno st : alunos){
+										st.att_curso(aux_curso, procurar);
+									}
+								}
 								break;
 						}
 					}while(optionsecundaria < 5 && optionsecundaria > 0);
@@ -534,12 +581,7 @@ public class menu{
 				case 4: // Submenu Disciplina
 					do{
 						do{
-							System.out.println("\n1. Cadastrar Disciplina;");
-							System.out.println("\n2. Consultar Disciplina;");
-							System.out.println("\n3. Remover Disciplina;");
-							System.out.println("\n4. Atualizar Disciplina;");
-							System.out.println("\n5. MENUPrincipal.");
-							System.out.print("\n-> ");
+							submenu("Disciplina");
 							optionsecundaria = input.nextInt();
 						}while(optionsecundaria > 5 || optionsecundaria < 1);
 						switch (optionsecundaria){
@@ -572,10 +614,7 @@ public class menu{
 								disciplinas.add(aux_disc);
 								break;
 							case 2: // Consulta disciplina
-								for(disciplina disc : disciplinas){// Exibe todos os cursos cadastrados
-									disc.exibe_codigo_nome();
-									System.out.println();
-								}
+								printa(disciplinas);// Exibe todos os cursos cadastrados
 								System.out.print("\n\tInsira o código da disciplina a ser buscada: ");
 								codigo = input.nextInt();
 								subfound = false;
@@ -591,10 +630,7 @@ public class menu{
 								}
 								break;
 							case 3: // Remove disciplina
-								for(disciplina disc : disciplinas){// Exibe todos as disciplinas cadastradas
-									disc.exibe_codigo_nome();
-									System.out.println();
-								}
+								printa(disciplinas);// Exibe todos as disciplinas cadastradas
 								System.out.print("\n\tInsira o código da disciplina a ser removida: ");
 								codigo = input.nextInt();
 								check = false;
@@ -622,11 +658,94 @@ public class menu{
 								}
 								break;
 							case 4: // Aualizar disciplina
+								printa(disciplinas);// Exibe todas as disciplinas cadastradas
+								System.out.print("\n\tInsira o código da disciplina a ser atualizado: ");
+								codigo = input.nextInt();
+								subfound = false;
+								for(disciplina disc : disciplinas){// Verifica a existência da disciplina na lista de disciplinas
+									if(disc.get_codigo() == codigo){ 
+										subfound = true;
+										procurar = disc.get_codigo();
+										do{
+											do{
+												disc.exibe();
+												System.out.println("\n\t Atualizar:");
+												System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Voltar;");
+												System.out.print("->");
+												aux_att = input.nextInt();
+											}while(aux_att < 1 || aux_att > 4);
+											switch(aux_att){
+												case 1: // Atualiza nome
+													System.out.print("\n\tInsira o novo nome:\n\t->");
+													nome = input.nextLine();
+													nome = input.nextLine();
+													nome = nome.toUpperCase();
+													disc.set_nome(nome);
+													System.out.println("\n\tNome atualizado com sucesso!");
+													break;
+												case 2: // Atualiza carga horário
+													System.out.print("\n\tInsira a nova carga horária:\n\t->");
+													carga_horaria = input.nextInt();
+													disc.set_carga_horaria(carga_horaria);
+													System.out.println("\n\tCarga Horária atualizado com sucesso!");
+													break;
+												case 3: // Atualiza código
+													System.out.print("\n\tInsira o novo código:\n\t->");
+													codigo = input.nextInt();
+													do{ // Confere se já não existe alguma disciplina com o novo código inserido;
+														check = false;
+														for(disciplina d : disciplinas){
+															if(codigo == d.get_codigo()){
+																System.out.print("\n\tCódigo existente! Insira um novo código da disciplina:");
+																codigo = input.nextInt();
+																check = true;
+																break;
+															}
+														}
+													}while(check);
+													disc.set_codigo(codigo);
+													System.out.println("\n\tCódigo atualizado com sucesso!");
+													break;
+											}
+										}while(aux_att != 4);
+										aux_disc = disc;
+										break;
+									}
+								}
+								if(!subfound){
+									System.out.println("\n\tDisciplina não encontrada.");
+								}
+								else{
+									for(aluno st : alunos){
+										st.att_disc(aux_disc, procurar);
+									}
+									for(curso_professor prof : professores){
+										prof.att_disc(aux_disc, procurar);
+									}
+									for(curso_professor curso : cursos){
+										curso.att_disc(aux_disc, procurar);
+									}
+								}
 								break;
 						}
 					}while(optionsecundaria < 5 && optionsecundaria > 0);
 					break;
 			}
 		}while(optionprincipal < 5 && optionprincipal > 0);
+	}
+
+	public static <T> void printa(LinkedList <T> lista){
+		for(T li : lista){
+			System.out.printf("\t%s", li);
+		}
+	}
+
+	public static void submenu(String tipo){
+		System.out.printf("\n1. Cadastrar %s;\n",tipo);
+		System.out.printf("\n2. Consultar %s;\n",tipo);
+		System.out.printf("\n3. Remover %s;\n",tipo);
+		System.out.printf("\n4. Atualizar %s;\n",tipo);
+		System.out.printf("\n5. MENUPrincipal.\n",tipo);
+		System.out.print("\n-> ");
 	}
 }

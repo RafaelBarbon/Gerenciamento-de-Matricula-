@@ -27,7 +27,14 @@ public class aluno extends curso_professor{//Herança
 
     public curso_professor get_curso(){
 		return this.curso;
-    }
+	}
+	
+	public void att_curso(curso_professor curso, int codigo){
+		if(this.curso.get_codigo() == codigo){
+			set_curso(curso);
+		}
+	}
+
 
     //Exibição das informações na tela 
     @Override 
@@ -40,9 +47,9 @@ public class aluno extends curso_professor{//Herança
 			curso.exibe(true);
 		}
 		else{
-			System.out.print(" Inexistente.");
+			System.out.print(" Inexistente.\n");
 		}		
-        System.out.println("\n\tDisciplinas:");
+        System.out.print("\n\tDisciplinas:");
         exibe_disc();
     }
 }

@@ -49,14 +49,10 @@ public class disciplina {
     public void exibe(){
         System.out.printf("\n\tNome: %s.", get_nome());
         System.out.printf("\n\tCódigo: %d.", get_codigo());
-        System.out.printf("\n\tCarga Horária: %d horas.", get_carga_horaria());
+        System.out.printf("\n\tCarga Horária: %d horas.\n", get_carga_horaria());
 	}
-	
-	public void exibe_codigo_nome(){
-		System.out.printf("\t%s - %d", this.get_nome(), this.get_codigo());
-    }
     
     public String toString(){
-        return String.format("%s - %d", this.nome, this.codigo);
+        return String.format("%s - %d", this.get_nome(), this.get_codigo());
     }
 }
