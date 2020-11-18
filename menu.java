@@ -9,7 +9,7 @@ public class menu{
 		Scanner input = new Scanner(System.in);
 		int optionprincipal = 0,optionsecundaria = 0, codigo = 0, carga_horaria = 0, i = 0, procurar = 0, aux_att = 0;
 		String nome = "\0";
-		boolean subfound = false, proffound = false, studentfound = false, check = false, cursofound = false;
+		boolean subfound = false, proffound = false, studentfound = false, check = false, cursofound = false, error = false;
 		LinkedList <disciplina> disciplinas = new LinkedList<disciplina>();
 		LinkedList <curso_professor> professores = new LinkedList<curso_professor>();
 		LinkedList <curso_professor> cursos = new LinkedList<curso_professor>();
@@ -21,21 +21,37 @@ public class menu{
 
 		do{
 			do{ // Menu principal
-				System.out.println("\n1. Gerenciar Professor;");
-				System.out.println("\n2. Gerenciar Aluno;");
-				System.out.println("\n3. Gerenciar Curso;");
-				System.out.println("\n4. Gerenciar Disciplina;");
-				System.out.println("\n5. Sair.");
-				System.out.print("\n-> ");
-				optionprincipal = input.nextInt();
-			}while(optionprincipal > 5 || optionprincipal < 1);
+				try{
+					error = false;
+					System.out.println("\n1. Gerenciar Professor;");
+					System.out.println("\n2. Gerenciar Aluno;");
+					System.out.println("\n3. Gerenciar Curso;");
+					System.out.println("\n4. Gerenciar Disciplina;");
+					System.out.println("\n5. Sair.");
+					System.out.print("\n-> ");
+					optionprincipal = input.nextInt();
+				}
+				catch(InputMismatchException InputMismatchException){
+					System.out.println("\n\tInsira um número inteiro dentro do intervalo para prosseguir.");
+					input.nextLine();
+					error = true;
+				}
+			}while(error || optionprincipal > 5 || optionprincipal < 1);
 			switch (optionprincipal){
 				case 1: // Submenu Professor
 					do{
 						do{
-							submenu("Professor");
-							optionsecundaria = input.nextInt();
-						}while(optionsecundaria > 5 || optionsecundaria < 1);
+							try{
+								error = false;
+								submenu("Professor");
+								optionsecundaria = input.nextInt();
+							}
+							catch(InputMismatchException InputMismatchException){
+								System.out.println("\n\tInsira um número inteiro dentro do intervalo para prosseguir.");
+								input.nextLine();
+								error = true;
+							}
+						}while(error || optionsecundaria > 5 || optionsecundaria < 1);
 						switch (optionsecundaria){
 							case 1: // Cadastro professor
 								System.out.print("\n\tInsira o nome do professor:");
@@ -43,18 +59,48 @@ public class menu{
 								nome = input.nextLine();
 								nome = nome.toUpperCase();
 								System.out.println();
-								System.out.print("\n\tInsira o carga horária do professor:");
-								carga_horaria = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o carga horária do professor:");
+										carga_horaria = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								System.out.println();
-								System.out.print("\n\tInsira o código do professor:");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código do professor:");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								do{
 									proffound = false;
 									for(curso_professor prof : professores){
 										if(codigo == prof.get_codigo()){
-											System.out.print("\n\tCódigo existente! Insira um novo código do professor:");
-											codigo = input.nextInt();
-											proffound = true;
+											do{
+												try{
+													error = false;
+													System.out.print("\n\tCódigo existente! Insira um novo código do professor:");
+													codigo = input.nextInt();
+												}
+												catch(InputMismatchException InputMismatchException){
+													System.out.println("\n\tInsira um número inteiro para prosseguir.");
+													input.nextLine();
+													error = true;
+												}
+											}while(error);
+													proffound = true;
 											break;
 										}
 									}
@@ -67,8 +113,18 @@ public class menu{
 								while(codigo != 0 && disciplinas.size() != 0){
 									System.out.println();
 									printa(disciplinas); // Lista as disciplinas existentes na lista de disciplinas 
-									System.out.print("\n\tInsira o código de uma disciplina (Digite \"0\" para sair):");
-									codigo = input.nextInt();
+									do{
+										try{
+											error = false;
+											System.out.print("\n\tInsira o código de uma disciplina (Digite \"0\" para sair):");
+											codigo = input.nextInt();
+										}
+										catch(InputMismatchException InputMismatchException){
+											System.out.println("\n\tInsira um número inteiro para prosseguir.");
+											input.nextLine();
+											error = true;
+										}
+									}while(error);
 									if(codigo != 0){
 										subfound = false;
 										for(disciplina discip : disciplinas){// Verifica a existência da disciplina na lista de disciplinas
@@ -88,8 +144,18 @@ public class menu{
 								break;
 							case 2: // Consulta professor
 								printa(professores);// Exibe todos os professores cadastrados
-								System.out.print("\n\tInsira o código do professor a ser buscado: ");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código do professor a ser buscado: ");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro dentro do intervalo para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								proffound = false;
 								for(curso_professor prof : professores){// Verifica a existência do professor na lista de professores
 									if(prof.get_codigo() == codigo){ 
@@ -104,8 +170,18 @@ public class menu{
 								break;
 							case 3: // Remove professor
 								printa(professores);// Exibe todos os professores cadastrados
-								System.out.print("\n\tInsira o código do professor a ser removido: ");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código do professor a ser removido: ");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								check = false;
 								for(curso_professor prof : professores){
 									if(codigo == prof.get_codigo()){
@@ -120,21 +196,39 @@ public class menu{
 								break;
 							case 4: // Atualizar professor
 								printa(professores);// Exibe todos os professores cadastrados
-								System.out.print("\n\tInsira o código do professor a ser atualizado: ");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código do professor a ser atualizado: ");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								proffound = false;
 								for(curso_professor prof : professores){// Verifica a existência do professor na lista de professores
 									if(prof.get_codigo() == codigo){ 
 										proffound = true;
 										do{
 											do{
-												prof.exibe(false);
-												System.out.println("\n\t Atualizar:");
-												System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
-												System.out.println("\t5. Adicionar Disciplinas;\n\t 6. Voltar;");
-												System.out.print("->");
-												aux_att = input.nextInt();
-											}while(aux_att < 1 || aux_att > 6);
+												try{
+													error = false;
+													prof.exibe(false);
+													System.out.println("\n\t Atualizar:");
+													System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
+													System.out.println("\t5. Adicionar Disciplinas;\n\t 6. Voltar;");
+													System.out.print("->");
+													aux_att = input.nextInt();
+												}
+												catch(InputMismatchException InputMismatchException){
+													System.out.println("\n\tInsira um número inteiro dentro do intervalo para prosseguir.");
+													input.nextLine();
+													error = true;
+												}
+											}while(error || aux_att < 1 || aux_att > 6);
 											switch(aux_att){
 												case 1: // Atualiza nome
 													System.out.print("\n\tInsira o novo nome:\n\t->");
@@ -145,20 +239,50 @@ public class menu{
 													System.out.println("\n\tNome atualizado com sucesso!");
 													break;
 												case 2: // Atualiza carga horário
-													System.out.print("\n\tInsira a nova carga horária:\n\t->");
-													carga_horaria = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira a nova carga horária:\n\t->");
+															carga_horaria = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													prof.set_carga_horaria(carga_horaria);
 													System.out.println("\n\tCarga Horária atualizado com sucesso!");
 													break;
 												case 3: // Atualiza código
-													System.out.print("\n\tInsira o novo código:\n\t->");
-													codigo = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira o novo código:\n\t->");
+															codigo = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													do{ // Confere se já não existe algum professor o novo código inserido;
 														check = false;
 														for(curso_professor pro : professores){
 															if(codigo == pro.get_codigo()){
-																System.out.print("\n\tCódigo existente! Insira um novo código do professor:");
-																codigo = input.nextInt();
+																do{
+																	try{
+																		error = false;
+																		System.out.print("\n\tCódigo existente! Insira um novo código do professor:");
+																		codigo = input.nextInt();
+																	}
+																	catch(InputMismatchException InputMismatchException){
+																		System.out.println("\n\tInsira um número inteiro para prosseguir.");
+																		input.nextLine();
+																		error = true;
+																	}
+																}while(error);
 																check = true;
 																break;
 															}
@@ -168,8 +292,18 @@ public class menu{
 													System.out.println("\n\tCódigo atualizado com sucesso!");
 													break;
 												case 4: // Remove Discipĺina da lista interna do professor
-													System.out.print("\n\tInsira o código da disciplina a ser removida:\n\t->");
-													codigo = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira o código da disciplina a ser removida:\n\t->");
+															codigo = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													for(disciplina d : disciplinas){
 														if(d.get_codigo() == codigo){	
 															prof.remove_disc(d);
@@ -180,8 +314,18 @@ public class menu{
 													break;
 												case 5://Adiciona Disciplina
 													printa(disciplinas);
-													System.out.print("\n\tInsira o código da disciplina a ser adicionada:\n\t->");
-													codigo = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira o código da disciplina a ser adicionada:\n\t->");
+															codigo = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													for(disciplina d: disciplinas){
 														if(d.get_codigo() == codigo){	
 															prof.adiciona_disc(d);
@@ -205,9 +349,17 @@ public class menu{
 				case 2: // Submenu Aluno
 					do{
 						do{
-							submenu("Aluno");
-							optionsecundaria = input.nextInt();
-						}while(optionsecundaria > 5 || optionsecundaria < 1);
+							try{
+								error = false;
+								submenu("Aluno");
+								optionsecundaria = input.nextInt();
+							}
+							catch(InputMismatchException InputMismatchException){
+								System.out.println("\n\tInsira um número inteiro dentro do intervalo para prosseguir.");
+								input.nextLine();
+								error = true;
+							}
+						}while(error || optionsecundaria > 5 || optionsecundaria < 1);
 						switch (optionsecundaria){
 							case 1: // Cadastro aluno
 								if(cursos.size() != 0){
@@ -216,17 +368,47 @@ public class menu{
 									nome = input.nextLine();
 									nome = nome.toUpperCase();
 									System.out.println();
-									System.out.print("\n\tInsira o carga horária do aluno:");
-									carga_horaria = input.nextInt();
+									do{
+										try{
+											error = false;
+											System.out.print("\n\tInsira o carga horária do aluno:");
+											carga_horaria = input.nextInt();
+										}
+										catch(InputMismatchException InputMismatchException){
+											System.out.println("\n\tInsira um número inteiro para prosseguir.");
+											input.nextLine();
+											error = true;
+										}
+									}while(error);
 									System.out.println();
-									System.out.print("\n\tInsira o código do aluno:");
-									codigo = input.nextInt();
+									do{
+										try{
+											error = false;
+											System.out.print("\n\tInsira o código do aluno:");
+											codigo = input.nextInt();
+										}
+										catch(InputMismatchException InputMismatchException){
+											System.out.println("\n\tInsira um número inteiro para prosseguir.");
+											input.nextLine();
+											error = true;
+										}
+									}while(error);
 									do{
 										studentfound = false;
 										for(aluno stud : alunos){
 											if(codigo == stud.get_codigo()){
-												System.out.print("\n\tCódigo existente! Insira um novo código do aluno:");
-												codigo = input.nextInt();
+												do{
+													try{
+														error = false;
+														System.out.print("\n\tCódigo existente! Insira um novo código do aluno:");
+														codigo = input.nextInt();
+													}
+													catch(InputMismatchException InputMismatchException){
+														System.out.println("\n\tInsira um número inteiro para prosseguir.");
+														input.nextLine();
+														error = true;
+													}
+												}while(error);
 												studentfound = true;
 												break;
 											}
@@ -235,9 +417,18 @@ public class menu{
 									System.out.println();
 
 									printa(cursos);// Exibe todos os cursos cadastrados
-
-									System.out.print("\n\tInsira o código do curso do aluno:");
-									procurar = input.nextInt();
+									do{
+										try{
+											error = false;
+											System.out.print("\n\tInsira o código do curso do aluno:");
+											procurar = input.nextInt();
+										}
+										catch(InputMismatchException InputMismatchException){
+											System.out.println("\n\tInsira um número inteiro para prosseguir.");
+											input.nextLine();
+											error = true;
+										}
+									}while(error);
 									System.out.println();
 
 									for(check = false, i = 0; i < cursos.size(); i++){ // Procura na lista de cursos, se o curso existe
@@ -253,8 +444,18 @@ public class menu{
 										System.out.println();
 										while(codigo != 0 && disciplinas.size() != 0){
 											aux_curso.lista_disc();
-											System.out.print("\n\tInsira uma Disciplina (Digite \"0\" para sair):");
-											codigo = input.nextInt();
+											do{
+												try{
+													error = false;
+													System.out.print("\n\tInsira uma Disciplina (Digite \"0\" para sair):");
+													codigo = input.nextInt();
+												}
+												catch(InputMismatchException InputMismatchException){
+													System.out.println("\n\tInsira um número inteiro para prosseguir.");
+													input.nextLine();
+													error = true;
+												}
+											}while(error);
 											if(codigo != 0){
 												aux_disc = aux_curso.procura_discp_curso(codigo);// Procura se a disciplina existe no curso(Retorna o obj. ou null se não existe); 
 												if(aux_disc == null){
@@ -279,8 +480,18 @@ public class menu{
 								break;
 							case 2: // Consulta aluno
 								printa(alunos);// Exibe todos os alunos cadastrados
-								System.out.print("\n\tInsira o código do aluno a ser buscado: ");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código do aluno a ser buscado: ");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								studentfound = false;
 								for(aluno stud : alunos){// Verifica a existência do aluno na lista de alunos
 									if(stud.get_codigo() == codigo){ 
@@ -295,8 +506,18 @@ public class menu{
 								break;
 							case 3: // Remove aluno
 								printa(alunos);// Exibe todos os alunos cadastrados
-								System.out.print("\n\tInsira o código do aluno a ser removido: ");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código do aluno a ser removido: ");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								check = false;
 								for(aluno stud : alunos){
 									if(codigo == stud.get_codigo()){
@@ -311,21 +532,39 @@ public class menu{
 								break;
 							case 4: // Aualizar aluno
 								printa(alunos);// Exibe todos os aluno cadastrados
-								System.out.print("\n\tInsira o código do aluno a ser atualizado: ");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código do aluno a ser atualizado: ");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								studentfound = false;
 								for(aluno stud : alunos){// Verifica a existência do aluno na lista de alunos
 									if(stud.get_codigo() == codigo){ 
 										studentfound = true;
 										do{
 											do{
-												stud.exibe();
-												System.out.println("\n\t Atualizar:");
-												System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
-												System.out.println("\t5. Adicionar Disciplinas;\n\t6. Atualizar Curso;\n\t7. Voltar;");
-												System.out.print("->");
-												aux_att = input.nextInt();
-											}while(aux_att < 1 || aux_att > 7);
+												try{
+													error = false;
+													stud.exibe();
+													System.out.println("\n\t Atualizar:");
+													System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
+													System.out.println("\t5. Adicionar Disciplinas;\n\t6. Atualizar Curso;\n\t7. Voltar;");
+													System.out.print("->");
+													aux_att = input.nextInt();
+												}
+												catch(InputMismatchException InputMismatchException){
+													System.out.println("\n\tInsira um número inteiro dentro do intervalo para prosseguir.");
+													input.nextLine();
+													error = true;
+												}
+											}while(error || aux_att < 1 || aux_att > 7);
 											switch(aux_att){
 												case 1:
 													System.out.print("\n\tInsira o novo nome:\n\t->");
@@ -336,20 +575,50 @@ public class menu{
 													System.out.println("\n\tNome atualizado com sucesso!");
 													break;
 												case 2:
-													System.out.print("\n\tInsira a nova carga horária:\n\t->");
-													carga_horaria = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira a nova carga horária:\n\t->");
+															carga_horaria = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													stud.set_carga_horaria(carga_horaria);
 													System.out.println("\n\tCarga Horária atualizado com sucesso!");
 													break;
 												case 3:
-													System.out.print("\n\tInsira o novo código:\n\t->");
-													codigo = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira o novo código:\n\t->");
+															codigo = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													do{//Confere se já não existe algum aluno com o novo código inserido;
 														check = false;
 														for(aluno st : alunos){
 															if(codigo == st.get_codigo()){
-																System.out.print("\n\tCódigo existente! Insira um novo código do aluno:");
-																codigo = input.nextInt();
+																do{
+																	try{
+																		error = false;
+																		System.out.print("\n\tCódigo existente! Insira um novo código do aluno:");
+																		codigo = input.nextInt();
+																	}
+																	catch(InputMismatchException InputMismatchException){
+																		System.out.println("\n\tInsira um número inteiro para prosseguir.");
+																		input.nextLine();
+																		error = true;
+																	}
+																}while(error);
 																check = true;
 																break;
 															}
@@ -359,8 +628,18 @@ public class menu{
 													System.out.println("\n\tCódigo atualizado com sucesso!");
 													break;
 												case 4://Remove Discipĺina 
-													System.out.print("\n\tInsira o código da disciplina a ser removida:\n\t->");
-													codigo = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira o código da disciplina a ser removida:\n\t->");
+															codigo = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													for(disciplina d : disciplinas){
 														if(d.get_codigo() == codigo){	
 															stud.remove_disc(d);
@@ -371,8 +650,18 @@ public class menu{
 													break;
 												case 5://Adiciona Disciplina
 													printa(disciplinas);
-													System.out.print("\n\tInsira o código da disciplina a ser adicionada:\n\t->");
-													codigo = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira o código da disciplina a ser adicionada:\n\t->");
+															codigo = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													for(disciplina d: disciplinas){
 														if(d.get_codigo() == codigo){	
 															stud.adiciona_disc(d);
@@ -383,8 +672,18 @@ public class menu{
 													break;
 												case 6://Atualiza Curso 
 													printa(cursos);
-													System.out.print("\n\tInsira o código do curso:");
-													codigo = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira o código do curso:");
+															codigo = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													for(curso_professor c: cursos){
 														if(c.get_codigo() == codigo){	
 															stud.set_curso(c);
@@ -406,9 +705,17 @@ public class menu{
 				case 3: // Submenu Curso
 					do{
 						do{
-							submenu("Curso");
-							optionsecundaria = input.nextInt();
-						}while(optionsecundaria > 5 || optionsecundaria < 1);
+							try{
+								error = false;
+								submenu("Curso");
+								optionsecundaria = input.nextInt();
+							}
+							catch(InputMismatchException InputMismatchException){
+								System.out.println("\n\tInsira um número inteiro dentro do intervalo para prosseguir.");
+								input.nextLine();
+								error = true;
+							}
+						}while(error || optionsecundaria > 5 || optionsecundaria < 1);
 						switch (optionsecundaria){
 							case 1: // Cadastro curso
 								System.out.print("\n\tInsira o nome do curso:");
@@ -416,17 +723,47 @@ public class menu{
 								nome = input.nextLine();
 								nome = nome.toUpperCase();
 								System.out.println();
-								System.out.print("\n\tInsira o carga horária do curso:");
-								carga_horaria = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o carga horária do curso:");
+										carga_horaria = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								System.out.println();
-								System.out.print("\n\tInsira o código do curso:");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código do curso:");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								do{
 									cursofound = false;
 									for(curso_professor curso : cursos){
 										if(codigo == curso.get_codigo()){
-											System.out.print("\n\tCódigo existente! Insira um novo código do curso:");
-											codigo = input.nextInt();
+											do{
+												try{
+													error = false;
+													System.out.print("\n\tCódigo existente! Insira um novo código do curso:");
+													codigo = input.nextInt();
+												}
+												catch(InputMismatchException InputMismatchException){
+													System.out.println("\n\tInsira um número inteiro para prosseguir.");
+													input.nextLine();
+													error = true;
+												}
+											}while(error);
 											cursofound = true;
 											break;
 										}
@@ -440,8 +777,18 @@ public class menu{
 								while(codigo != 0 && disciplinas.size() != 0){
 									System.out.println();
 									printa(disciplinas);// Lista as disciplinas existentes na lista de disciplinas 
-									System.out.print("\n\tInsira o código de uma disciplina (Digite \"0\" para sair):");
-									codigo = input.nextInt();									
+									do{
+										try{
+											error = false;
+											System.out.print("\n\tInsira o código de uma disciplina (Digite \"0\" para sair):");
+											codigo = input.nextInt();
+										}
+										catch(InputMismatchException InputMismatchException){
+											System.out.println("\n\tInsira um número inteiro para prosseguir.");
+											input.nextLine();
+											error = true;
+										}
+									}while(error);
 									if(codigo != 0){
 										subfound = false;
 										for(disciplina discip : disciplinas){// Verifica a existência da disciplina na lista de disciplinas
@@ -466,8 +813,18 @@ public class menu{
 								break;
 							case 3: // Remove curso
 								printa(cursos);// Exibe todos os cursos cadastrados
-								System.out.print("\n\tInsira o código do curso a ser removido: ");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código do curso a ser removido: ");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								check = false;
 								for(i = 0; i < cursos.size(); i++){
 									aux_curso = cursos.get(i);
@@ -489,8 +846,18 @@ public class menu{
 								break;
 							case 4: // Atualizar curso
 								printa(cursos);// Exibe todos os cursos cadastrados
-								System.out.print("\n\tInsira o código do curso a ser atualizado: ");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código do curso a ser atualizado: ");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								cursofound = false;
 								for(curso_professor curso : cursos){// Verifica a existência do curso na lista de cursos
 									if(curso.get_codigo() == codigo){
@@ -498,13 +865,21 @@ public class menu{
 										cursofound = true;
 										do{
 											do{
-												curso.exibe(false);
-												System.out.println("\n\t Atualizar:");
-												System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
-												System.out.println("\t5. Adicionar Disciplinas;\n\t 6. Voltar;");
-												System.out.print("->");
-												aux_att = input.nextInt();
-											}while(aux_att < 1 || aux_att > 6);
+												try{
+													error = false;
+													curso.exibe(false);
+													System.out.println("\n\t Atualizar:");
+													System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
+													System.out.println("\t5. Adicionar Disciplinas;\n\t 6. Voltar;");
+													System.out.print("->");
+													aux_att = input.nextInt();
+												}
+												catch(InputMismatchException InputMismatchException){
+													System.out.println("\n\tInsira um número inteiro dentro do intervalo para prosseguir.");
+													input.nextLine();
+													error = true;
+												}
+											}while(error || aux_att < 1 || aux_att > 6);
 											switch(aux_att){
 												case 1: // Atualiza nome
 													System.out.print("\n\tInsira o novo nome:\n\t->");
@@ -515,20 +890,50 @@ public class menu{
 													System.out.println("\n\tNome atualizado com sucesso!");
 													break;
 												case 2: // Atualiza carga horário
-													System.out.print("\n\tInsira a nova carga horária:\n\t->");
-													carga_horaria = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira a nova carga horária:\n\t->");
+															carga_horaria = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													curso.set_carga_horaria(carga_horaria);
 													System.out.println("\n\tCarga Horária atualizado com sucesso!");
 													break;
 												case 3: // Atualiza código
-													System.out.print("\n\tInsira o novo código:\n\t->");
-													codigo = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira o novo código:\n\t->");
+															codigo = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													do{ // Confere se já não existe algum curso com o novo código inserido;
 														check = false;
 														for(curso_professor c : cursos){
 															if(codigo == c.get_codigo()){
-																System.out.print("\n\tCódigo existente! Insira um novo código do curso:");
-																codigo = input.nextInt();
+																do{
+																	try{
+																		error = false;
+																		System.out.print("\n\tCódigo existente! Insira um novo código do curso:");
+																		codigo = input.nextInt();
+																	}
+																	catch(InputMismatchException InputMismatchException){
+																		System.out.println("\n\tInsira um número inteiro para prosseguir.");
+																		input.nextLine();
+																		error = true;
+																	}
+																}while(error);
 																check = true;
 																break;
 															}
@@ -538,8 +943,18 @@ public class menu{
 													System.out.println("\n\tCódigo atualizado com sucesso!");
 													break;
 												case 4: // Remove Discipĺina da lista interna do curso
-													System.out.print("\n\tInsira o código da disciplina a ser removida:\n\t->");
-													codigo = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira o código da disciplina a ser removida:\n\t->");
+															codigo = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													for(disciplina d : disciplinas){
 														if(d.get_codigo() == codigo){	
 															curso.remove_disc(d);
@@ -550,9 +965,19 @@ public class menu{
 													break;
 												case 5: // Adiciona Disciplina
 													printa(disciplinas);
-													System.out.print("\n\tInsira o código da disciplina a ser adicionada:\n\t->");
-													codigo = input.nextInt();
-													for(disciplina d: disciplinas){
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira o código da disciplina a ser adicionada:\n\t->");
+															codigo = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
+													for(disciplina d : disciplinas){
 														if(d.get_codigo() == codigo){	
 															curso.adiciona_disc(d);
 															break;
@@ -581,9 +1006,17 @@ public class menu{
 				case 4: // Submenu Disciplina
 					do{
 						do{
-							submenu("Disciplina");
-							optionsecundaria = input.nextInt();
-						}while(optionsecundaria > 5 || optionsecundaria < 1);
+							try{
+								error = false;
+								submenu("Disciplina");
+								optionsecundaria = input.nextInt();
+							}
+							catch(InputMismatchException InputMismatchException){
+								System.out.println("\n\tInsira um número inteiro dentro do intervalo para prosseguir.");
+								input.nextLine();
+								error = true;
+							}
+						}while(error || optionsecundaria > 5 || optionsecundaria < 1);
 						switch (optionsecundaria){
 							case 1: // Cadastro disciplina
 								System.out.print("\n\tInsira o nome da disciplina:");
@@ -591,17 +1024,47 @@ public class menu{
 								nome = input.nextLine();
 								nome = nome.toUpperCase();
 								System.out.println();
-								System.out.print("\n\tInsira o carga horária da disciplina:");
-								carga_horaria = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o carga horária da disciplina:");
+										carga_horaria = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								System.out.println();
-								System.out.print("\n\tInsira o código da disciplina:");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código da disciplina:");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								do{
 									subfound = false;
 									for(disciplina disc : disciplinas){
 										if(codigo == disc.get_codigo()){
-											System.out.print("\n\tCódigo existente! Insira um novo código do disciplina:");
-											codigo = input.nextInt();
+											do{
+												try{
+													error = false;
+													System.out.print("\n\tCódigo existente! Insira um novo código do disciplina:");
+													codigo = input.nextInt();
+												}
+												catch(InputMismatchException InputMismatchException){
+													System.out.println("\n\tInsira um número inteiro para prosseguir.");
+													input.nextLine();
+													error = true;
+												}
+											}while(error);
 											subfound = true;
 											break;
 										}
@@ -615,8 +1078,18 @@ public class menu{
 								break;
 							case 2: // Consulta disciplina
 								printa(disciplinas);// Exibe todos os cursos cadastrados
-								System.out.print("\n\tInsira o código da disciplina a ser buscada: ");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código da disciplina a ser buscada: ");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								subfound = false;
 								for(disciplina disc : disciplinas){// Verifica a existência da disciplina na lista de disciplinas
 									if(disc.get_codigo() == codigo){ 
@@ -631,8 +1104,18 @@ public class menu{
 								break;
 							case 3: // Remove disciplina
 								printa(disciplinas);// Exibe todos as disciplinas cadastradas
-								System.out.print("\n\tInsira o código da disciplina a ser removida: ");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código da disciplina a ser removida: ");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								check = false;
 								for(i = 0; i < disciplinas.size(); i++){
 									aux_disc = disciplinas.get(i);
@@ -659,8 +1142,18 @@ public class menu{
 								break;
 							case 4: // Aualizar disciplina
 								printa(disciplinas);// Exibe todas as disciplinas cadastradas
-								System.out.print("\n\tInsira o código da disciplina a ser atualizado: ");
-								codigo = input.nextInt();
+								do{
+									try{
+										error = false;
+										System.out.print("\n\tInsira o código da disciplina a ser atualizado: ");
+										codigo = input.nextInt();
+									}
+									catch(InputMismatchException InputMismatchException){
+										System.out.println("\n\tInsira um número inteiro para prosseguir.");
+										input.nextLine();
+										error = true;
+									}
+								}while(error);
 								subfound = false;
 								for(disciplina disc : disciplinas){// Verifica a existência da disciplina na lista de disciplinas
 									if(disc.get_codigo() == codigo){ 
@@ -668,12 +1161,20 @@ public class menu{
 										procurar = disc.get_codigo();
 										do{
 											do{
-												disc.exibe();
-												System.out.println("\n\t Atualizar:");
-												System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Voltar;");
-												System.out.print("->");
-												aux_att = input.nextInt();
-											}while(aux_att < 1 || aux_att > 4);
+												try{
+													error = false;
+													disc.exibe();
+													System.out.println("\n\t Atualizar:");
+													System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Voltar;");
+													System.out.print("->");
+													aux_att = input.nextInt();
+												}
+												catch(InputMismatchException InputMismatchException){
+													System.out.println("\n\tInsira um número inteiro dentro do intervalo para prosseguir.");
+													input.nextLine();
+													error = true;
+												}
+											}while(error || aux_att < 1 || aux_att > 4);
 											switch(aux_att){
 												case 1: // Atualiza nome
 													System.out.print("\n\tInsira o novo nome:\n\t->");
@@ -684,20 +1185,50 @@ public class menu{
 													System.out.println("\n\tNome atualizado com sucesso!");
 													break;
 												case 2: // Atualiza carga horário
-													System.out.print("\n\tInsira a nova carga horária:\n\t->");
-													carga_horaria = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira a nova carga horária:\n\t->");
+															carga_horaria = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													disc.set_carga_horaria(carga_horaria);
 													System.out.println("\n\tCarga Horária atualizado com sucesso!");
 													break;
 												case 3: // Atualiza código
-													System.out.print("\n\tInsira o novo código:\n\t->");
-													codigo = input.nextInt();
+													do{
+														try{
+															error = false;
+															System.out.print("\n\tInsira o novo código:\n\t->");
+															codigo = input.nextInt();
+														}
+														catch(InputMismatchException InputMismatchException){
+															System.out.println("\n\tInsira um número inteiro para prosseguir.");
+															input.nextLine();
+															error = true;
+														}
+													}while(error);
 													do{ // Confere se já não existe alguma disciplina com o novo código inserido;
 														check = false;
 														for(disciplina d : disciplinas){
 															if(codigo == d.get_codigo()){
-																System.out.print("\n\tCódigo existente! Insira um novo código da disciplina:");
-																codigo = input.nextInt();
+																do{
+																	try{
+																		error = false;
+																		System.out.print("\n\tCódigo existente! Insira um novo código da disciplina:");
+																		codigo = input.nextInt();
+																	}
+																	catch(InputMismatchException InputMismatchException){
+																		System.out.println("\n\tInsira um número inteiro para prosseguir.");
+																		input.nextLine();
+																		error = true;
+																	}
+																}while(error);
 																check = true;
 																break;
 															}
@@ -748,4 +1279,5 @@ public class menu{
 		System.out.printf("\n5. MENUPrincipal.\n",tipo);
 		System.out.print("\n-> ");
 	}
+
 }
