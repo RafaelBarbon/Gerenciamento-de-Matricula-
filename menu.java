@@ -19,16 +19,18 @@ public class menu{
 		curso_professor aux_professor = null, aux_curso = null;
 		disciplina aux_disc = null;
 
+		clear();
+
 		do{
 			do{ // Menu principal
 				try{
 					error = false;
-					System.out.println("\n1. Gerenciar Professor;");
-					System.out.println("\n2. Gerenciar Aluno;");
-					System.out.println("\n3. Gerenciar Curso;");
-					System.out.println("\n4. Gerenciar Disciplina;");
-					System.out.println("\n5. Sair.");
-					System.out.print("\n-> ");
+					System.out.println("\n\t1. Gerenciar Professor;");
+					System.out.println("\n\t2. Gerenciar Aluno;");
+					System.out.println("\n\t3. Gerenciar Curso;");
+					System.out.println("\n\t4. Gerenciar Disciplina;");
+					System.out.println("\n\t5. Sair.");
+					System.out.print("\n\t-> ");
 					optionprincipal = input.nextInt();
 				}
 				catch(InputMismatchException InputMismatchException){
@@ -37,6 +39,7 @@ public class menu{
 					error = true;
 				}
 			}while(error || optionprincipal > 5 || optionprincipal < 1);
+			clear();
 			switch (optionprincipal){
 				case 1: // Submenu Professor
 					do{
@@ -52,8 +55,10 @@ public class menu{
 								error = true;
 							}
 						}while(error || optionsecundaria > 5 || optionsecundaria < 1);
+						clear();
 						switch (optionsecundaria){
 							case 1: // Cadastro professor
+								System.out.println("\n\tCadastro de professor");
 								System.out.print("\n\tInsira o nome do professor:");
 								nome = input.nextLine();
 								nome = input.nextLine();
@@ -86,7 +91,7 @@ public class menu{
 								}while(error);
 								do{
 									proffound = false;
-									for(curso_professor prof : professores){
+									for(curso_professor prof : professores){ // Verifica duplicidade do código
 										if(codigo == prof.get_codigo()){
 											do{
 												try{
@@ -143,6 +148,7 @@ public class menu{
 								professores.add(aux_professor);
 								break;
 							case 2: // Consulta professor
+								System.out.println("\n\tConsulta de professor");
 								printa(professores);// Exibe todos os professores cadastrados
 								do{
 									try{
@@ -169,6 +175,7 @@ public class menu{
 								}
 								break;
 							case 3: // Remove professor
+								System.out.println("\n\tRemoção de professor");
 								printa(professores);// Exibe todos os professores cadastrados
 								do{
 									try{
@@ -195,6 +202,7 @@ public class menu{
 								}
 								break;
 							case 4: // Atualizar professor
+								System.out.println("\n\tAtualização de professor");
 								printa(professores);// Exibe todos os professores cadastrados
 								do{
 									try{
@@ -219,8 +227,8 @@ public class menu{
 													prof.exibe(false);
 													System.out.println("\n\t Atualizar:");
 													System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
-													System.out.println("\t5. Adicionar Disciplinas;\n\t 6. Voltar;");
-													System.out.print("->");
+													System.out.println("\t5. Adicionar Disciplinas;\n\t6. Voltar;");
+													System.out.print("\t->");
 													aux_att = input.nextInt();
 												}
 												catch(InputMismatchException InputMismatchException){
@@ -229,8 +237,10 @@ public class menu{
 													error = true;
 												}
 											}while(error || aux_att < 1 || aux_att > 6);
+											clear();
 											switch(aux_att){
 												case 1: // Atualiza nome
+													System.out.println("\n\tAtualização do nome");
 													System.out.print("\n\tInsira o novo nome:\n\t->");
 													nome = input.nextLine();
 													nome = input.nextLine();
@@ -239,6 +249,7 @@ public class menu{
 													System.out.println("\n\tNome atualizado com sucesso!");
 													break;
 												case 2: // Atualiza carga horário
+													System.out.println("\n\tAtualização da carga horária");
 													do{
 														try{
 															error = false;
@@ -255,6 +266,7 @@ public class menu{
 													System.out.println("\n\tCarga Horária atualizado com sucesso!");
 													break;
 												case 3: // Atualiza código
+													System.out.println("\n\tAtualização do código");
 													do{
 														try{
 															error = false;
@@ -267,7 +279,7 @@ public class menu{
 															error = true;
 														}
 													}while(error);
-													do{ // Confere se já não existe algum professor o novo código inserido;
+													do{ // Confere se já existe algum professor o novo código inserido
 														check = false;
 														for(curso_professor pro : professores){
 															if(codigo == pro.get_codigo()){
@@ -292,6 +304,7 @@ public class menu{
 													System.out.println("\n\tCódigo atualizado com sucesso!");
 													break;
 												case 4: // Remove Discipĺina da lista interna do professor
+													System.out.println("\n\tDesvínculo da disciplina do professor");
 													do{
 														try{
 															error = false;
@@ -313,6 +326,7 @@ public class menu{
 													System.out.println("\n\tDisciplina Removida com sucesso!");
 													break;
 												case 5://Adiciona Disciplina
+													System.out.println("\n\tVínculo da disciplina com o professor");
 													printa(disciplinas);
 													do{
 														try{
@@ -360,8 +374,10 @@ public class menu{
 								error = true;
 							}
 						}while(error || optionsecundaria > 5 || optionsecundaria < 1);
+						clear();
 						switch (optionsecundaria){
 							case 1: // Cadastro aluno
+								System.out.println("\n\tCadastro de aluno");
 								if(cursos.size() != 0){
 									System.out.print("\n\tInsira o nome do aluno:");
 									nome = input.nextLine();
@@ -395,7 +411,7 @@ public class menu{
 									}while(error);
 									do{
 										studentfound = false;
-										for(aluno stud : alunos){
+										for(aluno stud : alunos){ // Verifica se há duplicidade de código
 											if(codigo == stud.get_codigo()){
 												do{
 													try{
@@ -457,7 +473,7 @@ public class menu{
 												}
 											}while(error);
 											if(codigo != 0){
-												aux_disc = aux_curso.procura_discp_curso(codigo);// Procura se a disciplina existe no curso(Retorna o obj. ou null se não existe); 
+												aux_disc = aux_curso.procura_discp_curso(codigo);// Procura se a disciplina existe no curso
 												if(aux_disc == null){
 													System.out.print("\n\tDisciplina não encontrada no curso!");
 												}
@@ -479,6 +495,7 @@ public class menu{
 								alunos.add(aux_aluno);
 								break;
 							case 2: // Consulta aluno
+								System.out.println("\n\tConsulta de aluno");
 								printa(alunos);// Exibe todos os alunos cadastrados
 								do{
 									try{
@@ -505,6 +522,7 @@ public class menu{
 								}
 								break;
 							case 3: // Remove aluno
+								System.out.println("\n\tRemoção de aluno");
 								printa(alunos);// Exibe todos os alunos cadastrados
 								do{
 									try{
@@ -531,6 +549,7 @@ public class menu{
 								}
 								break;
 							case 4: // Aualizar aluno
+								System.out.println("\n\tAtualização de aluno");
 								printa(alunos);// Exibe todos os aluno cadastrados
 								do{
 									try{
@@ -565,8 +584,10 @@ public class menu{
 													error = true;
 												}
 											}while(error || aux_att < 1 || aux_att > 7);
+											clear();
 											switch(aux_att){
 												case 1:
+													System.out.println("\n\tAtualização de nome");
 													System.out.print("\n\tInsira o novo nome:\n\t->");
 													nome = input.nextLine();
 													nome = input.nextLine();
@@ -575,6 +596,7 @@ public class menu{
 													System.out.println("\n\tNome atualizado com sucesso!");
 													break;
 												case 2:
+													System.out.println("\n\tAtualização de carga horária");
 													do{
 														try{
 															error = false;
@@ -591,6 +613,7 @@ public class menu{
 													System.out.println("\n\tCarga Horária atualizado com sucesso!");
 													break;
 												case 3:
+													System.out.println("\n\tAtualização de código");
 													do{
 														try{
 															error = false;
@@ -603,7 +626,7 @@ public class menu{
 															error = true;
 														}
 													}while(error);
-													do{//Confere se já não existe algum aluno com o novo código inserido;
+													do{//Confere se já existe algum aluno com o novo código inserido;
 														check = false;
 														for(aluno st : alunos){
 															if(codigo == st.get_codigo()){
@@ -628,6 +651,7 @@ public class menu{
 													System.out.println("\n\tCódigo atualizado com sucesso!");
 													break;
 												case 4://Remove Discipĺina 
+													System.out.println("\n\tDesvínculo de disciplina do aluno");
 													do{
 														try{
 															error = false;
@@ -649,6 +673,7 @@ public class menu{
 													System.out.println("\n\tDisciplina Removida com sucesso!");
 													break;
 												case 5://Adiciona Disciplina
+													System.out.println("\n\tVínculo de disciplina ao aluno");
 													printa(disciplinas);
 													do{
 														try{
@@ -670,7 +695,8 @@ public class menu{
 													}
 													System.out.print("\n\tDisciplina adicionada com sucesso!");
 													break;
-												case 6://Atualiza Curso 
+												case 6://Atualiza Curso
+													System.out.println("\n\tAtualizar curso");
 													printa(cursos);
 													do{
 														try{
@@ -716,8 +742,10 @@ public class menu{
 								error = true;
 							}
 						}while(error || optionsecundaria > 5 || optionsecundaria < 1);
+						clear();
 						switch (optionsecundaria){
 							case 1: // Cadastro curso
+								System.out.println("\n\tCadastro de curso");
 								System.out.print("\n\tInsira o nome do curso:");
 								nome = input.nextLine();
 								nome = input.nextLine();
@@ -751,7 +779,7 @@ public class menu{
 								do{
 									cursofound = false;
 									for(curso_professor curso : cursos){
-										if(codigo == curso.get_codigo()){
+										if(codigo == curso.get_codigo()){ // Verifica se há duplicidade do código
 											do{
 												try{
 													error = false;
@@ -806,12 +834,14 @@ public class menu{
 								cursos.add(aux_curso);
 								break;
 							case 2: // Consulta curso
+								System.out.println("\n\tConsulta dos cursos");
 								for(curso_professor curso : cursos){// Exibe todos os cursos cadastrados
 									curso.exibe(false);
 									System.out.println();
 								}
 								break;
 							case 3: // Remove curso
+								System.out.println("\n\tRemoção de curso");
 								printa(cursos);// Exibe todos os cursos cadastrados
 								do{
 									try{
@@ -845,6 +875,7 @@ public class menu{
 								}
 								break;
 							case 4: // Atualizar curso
+								System.out.println("\n\tAtualização de curso");
 								printa(cursos);// Exibe todos os cursos cadastrados
 								do{
 									try{
@@ -880,8 +911,10 @@ public class menu{
 													error = true;
 												}
 											}while(error || aux_att < 1 || aux_att > 6);
+											clear();
 											switch(aux_att){
 												case 1: // Atualiza nome
+													System.out.println("\n\tAtualização de nome");	
 													System.out.print("\n\tInsira o novo nome:\n\t->");
 													nome = input.nextLine();
 													nome = input.nextLine();
@@ -890,6 +923,7 @@ public class menu{
 													System.out.println("\n\tNome atualizado com sucesso!");
 													break;
 												case 2: // Atualiza carga horário
+													System.out.println("\n\tAtualização de carga horária");
 													do{
 														try{
 															error = false;
@@ -906,6 +940,7 @@ public class menu{
 													System.out.println("\n\tCarga Horária atualizado com sucesso!");
 													break;
 												case 3: // Atualiza código
+													System.out.println("\n\tAtualização do código");
 													do{
 														try{
 															error = false;
@@ -918,7 +953,7 @@ public class menu{
 															error = true;
 														}
 													}while(error);
-													do{ // Confere se já não existe algum curso com o novo código inserido;
+													do{ // Confere se já existe algum curso com o novo código inserido;
 														check = false;
 														for(curso_professor c : cursos){
 															if(codigo == c.get_codigo()){
@@ -943,6 +978,7 @@ public class menu{
 													System.out.println("\n\tCódigo atualizado com sucesso!");
 													break;
 												case 4: // Remove Discipĺina da lista interna do curso
+													System.out.println("\n\tDesvínculo da disciplina do curso");
 													do{
 														try{
 															error = false;
@@ -964,6 +1000,7 @@ public class menu{
 													System.out.println("\n\tDisciplina Removida com sucesso!");
 													break;
 												case 5: // Adiciona Disciplina
+													System.out.println("\n\tVínculo da disciplina ao curso");
 													printa(disciplinas);
 													do{
 														try{
@@ -1017,8 +1054,10 @@ public class menu{
 								error = true;
 							}
 						}while(error || optionsecundaria > 5 || optionsecundaria < 1);
+						clear();
 						switch (optionsecundaria){
 							case 1: // Cadastro disciplina
+								System.out.println("\n\tCadastro de disciplina");
 								System.out.print("\n\tInsira o nome da disciplina:");
 								nome = input.nextLine();
 								nome = input.nextLine();
@@ -1051,7 +1090,7 @@ public class menu{
 								}while(error);
 								do{
 									subfound = false;
-									for(disciplina disc : disciplinas){
+									for(disciplina disc : disciplinas){ // Conferência de duplicidade do código
 										if(codigo == disc.get_codigo()){
 											do{
 												try{
@@ -1077,7 +1116,8 @@ public class menu{
 								disciplinas.add(aux_disc);
 								break;
 							case 2: // Consulta disciplina
-								printa(disciplinas);// Exibe todos os cursos cadastrados
+								System.out.println("\n\tConsulta de disciplina");
+								printa(disciplinas);// Exibe todos as disciplinas cadastradas
 								do{
 									try{
 										error = false;
@@ -1103,6 +1143,7 @@ public class menu{
 								}
 								break;
 							case 3: // Remove disciplina
+								System.out.println("\n\tRemoção de disciplina");
 								printa(disciplinas);// Exibe todos as disciplinas cadastradas
 								do{
 									try{
@@ -1141,6 +1182,7 @@ public class menu{
 								}
 								break;
 							case 4: // Aualizar disciplina
+								System.out.println("\n\tAtualização de disciplina");
 								printa(disciplinas);// Exibe todas as disciplinas cadastradas
 								do{
 									try{
@@ -1175,8 +1217,10 @@ public class menu{
 													error = true;
 												}
 											}while(error || aux_att < 1 || aux_att > 4);
+											clear();
 											switch(aux_att){
 												case 1: // Atualiza nome
+													System.out.println("\n\tAtualização de nome");
 													System.out.print("\n\tInsira o novo nome:\n\t->");
 													nome = input.nextLine();
 													nome = input.nextLine();
@@ -1185,6 +1229,7 @@ public class menu{
 													System.out.println("\n\tNome atualizado com sucesso!");
 													break;
 												case 2: // Atualiza carga horário
+													System.out.println("\n\tAtualização de carga horária");
 													do{
 														try{
 															error = false;
@@ -1201,6 +1246,7 @@ public class menu{
 													System.out.println("\n\tCarga Horária atualizado com sucesso!");
 													break;
 												case 3: // Atualiza código
+													System.out.println("\n\tAtualização de código");
 													do{
 														try{
 															error = false;
@@ -1213,7 +1259,7 @@ public class menu{
 															error = true;
 														}
 													}while(error);
-													do{ // Confere se já não existe alguma disciplina com o novo código inserido;
+													do{ // Confere se já existe alguma disciplina com o novo código inserido
 														check = false;
 														for(disciplina d : disciplinas){
 															if(codigo == d.get_codigo()){
@@ -1265,19 +1311,37 @@ public class menu{
 		}while(optionprincipal < 5 && optionprincipal > 0);
 	}
 
+	// Método genérico para exibir os nomes e códigos para o usuário selecionar
 	public static <T> void printa(LinkedList <T> lista){
 		for(T li : lista){
 			System.out.printf("\t%s", li);
 		}
 	}
 
+	// Método que printa o menu secundário
 	public static void submenu(String tipo){
-		System.out.printf("\n1. Cadastrar %s;\n",tipo);
-		System.out.printf("\n2. Consultar %s;\n",tipo);
-		System.out.printf("\n3. Remover %s;\n",tipo);
-		System.out.printf("\n4. Atualizar %s;\n",tipo);
-		System.out.printf("\n5. MENUPrincipal.\n",tipo);
-		System.out.print("\n-> ");
+		System.out.printf("\n\t1. Cadastrar %s;\n",tipo);
+		System.out.printf("\n\t2. Consultar %s;\n",tipo);
+		System.out.printf("\n\t3. Remover %s;\n",tipo);
+		System.out.printf("\n\t4. Atualizar %s;\n",tipo);
+		System.out.printf("\n\t5. MENUPrincipal.\n",tipo);
+		System.out.print("\n\t-> ");
 	}
 
+	// Método que limpa a tela
+	public final static void clear(){
+		try{
+			final String os = System.getProperty("os.name");
+			if(os.contains("Windows")){
+				Runtime.getRuntime().exec("cls");
+			}
+			else{
+				//Runtime.getRuntime().exec("clear");
+				System.out.print("\33\143"); // limpa a tela
+			}
+		}
+		catch (final Exception e){
+			System.out.println("\n\tNão foi possível limpar a tela.");
+		}
+	}
 }
