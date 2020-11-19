@@ -37,7 +37,6 @@ public class aluno extends curso_professor{//Herança
 
 
     //Exibição das informações na tela 
-    @Override 
     public void exibe(){
         System.out.printf("\n\n\tNome: %s.", get_nome());
         System.out.printf("\n\tCódigo: %d.", get_codigo());
