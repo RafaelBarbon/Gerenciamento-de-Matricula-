@@ -5,7 +5,8 @@ public class disciplina {
     
     private String nome;
     private int carga_horaria, codigo;
-    
+	
+	// Construtores
     public disciplina(String nome, int carga_horaria, int codigo){
         this.nome = nome;
         this.carga_horaria = carga_horaria;
@@ -18,7 +19,7 @@ public class disciplina {
         this.codigo = 0;
     }
 
-    //Métodos de coleta das informações
+    // Métodos de coleta das informações
     public String get_nome(){
         return this.nome;
     }
@@ -46,12 +47,14 @@ public class disciplina {
         this.codigo = codigo;
     }
 
+	// Método para exibição das informações
     public void exibe(){
         System.out.printf("\n\tNome: %s.", get_nome());
         System.out.printf("\n\tCódigo: %d.", get_codigo());
         System.out.printf("\n\tCarga Horária: %d horas.\n", get_carga_horaria());
 	}
-    
+	
+	// Método que exibe o nome seguido do código
     public String toString(){
         return String.format("%s - %d", this.get_nome(), this.get_codigo());
     }

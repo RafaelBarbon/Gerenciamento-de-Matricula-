@@ -140,7 +140,7 @@ public class menu{
 											}
 										}
 										if(!subfound){
-											System.out.print("\n\tDisciplina não encontrada");
+											System.out.println("\n\tDisciplina não encontrada.");
 										}
 									}
 								}
@@ -165,7 +165,7 @@ public class menu{
 								proffound = false;
 								for(curso_professor prof : professores){// Verifica a existência do professor na lista de professores
 									if(prof.get_codigo() == codigo){ 
-										prof.exibe(false);
+										prof.exibe();
 										proffound = true;
 										break;
 									}
@@ -224,7 +224,7 @@ public class menu{
 											do{
 												try{
 													error = false;
-													prof.exibe(false);
+													prof.exibe();
 													System.out.println("\n\t Atualizar:");
 													System.out.println("\t1. Nome;\n\t2. Carga Horária;\n\t3. Código;\n\t4. Remover Disciplinas;");
 													System.out.println("\t5. Adicionar Disciplinas;\n\t6. Voltar;");
@@ -346,7 +346,6 @@ public class menu{
 															break;
 														}
 													}
-													System.out.print("\n\tDisciplina adicionada com sucesso!");
 													break;
 											}
 										}while(aux_att != 6);
@@ -475,7 +474,7 @@ public class menu{
 											if(codigo != 0){
 												aux_disc = aux_curso.procura_discp_curso(codigo);// Procura se a disciplina existe no curso
 												if(aux_disc == null){
-													System.out.print("\n\tDisciplina não encontrada no curso!");
+													System.out.println("\n\tDisciplina não encontrada no curso!");
 												}
 												else{
 													aux_aluno.adiciona_disc(aux_disc); 
@@ -485,7 +484,7 @@ public class menu{
 									}
 									else{ // Não encontrou o curso na lista
 										aux_aluno = new aluno(nome,carga_horaria,codigo);
-										System.out.print("\n\t Aluno cadastrado sem curso!");
+										System.out.println("\n\t Aluno cadastrado sem curso!");
 									}
 								}
 								else{ // Não existe cursos na lista
@@ -693,7 +692,6 @@ public class menu{
 															break;
 														}
 													}
-													System.out.print("\n\tDisciplina adicionada com sucesso!");
 													break;
 												case 6://Atualiza Curso
 													System.out.println("\n\tAtualizar curso");
@@ -827,7 +825,7 @@ public class menu{
 											}
 										}
 										if(!subfound){
-											System.out.print("\n\tDisciplina não encontrada.");
+											System.out.println("\n\tDisciplina não encontrada.");
 										}
 									}
 								}
@@ -1020,7 +1018,6 @@ public class menu{
 															break;
 														}
 													}
-													System.out.print("\n\tDisciplina adicionada com sucesso!");
 													break;
 											}
 										}while(aux_att != 6);
@@ -1337,7 +1334,7 @@ public class menu{
 			}
 			else{
 				//Runtime.getRuntime().exec("clear");
-				System.out.print("\33\143"); // limpa a tela
+				System.out.print("\33\143"); // limpa a tela (33) e volta o cursor de texto para o início (143)
 			}
 		}
 		catch (final Exception e){
