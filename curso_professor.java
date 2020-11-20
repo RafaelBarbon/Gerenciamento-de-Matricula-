@@ -55,7 +55,7 @@ public class curso_professor extends disciplina{//Herança
 	}
 
 	// Coleta o tamanho da lista de disciplinas
-	public int get_size_disc(){
+	protected int get_size_disc(){
 		return this.disciplinas.size();
 	}
 	
@@ -71,7 +71,7 @@ public class curso_professor extends disciplina{//Herança
 	}
 
 	// Exibição das informações da lista de disciplinas
-    public void exibe_disc(){
+    protected void exibe_disc(){
         for(disciplina aux : disciplinas){ 
             aux.exibe();
         }
