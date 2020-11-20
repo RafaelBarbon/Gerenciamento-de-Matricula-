@@ -203,7 +203,7 @@ public class menu{
 								break;
 							case 4: // Atualizar professor
 								System.out.println("\n\tAtualização de professor");
-								printa(professores);// Exibe todos os professores cadastrados
+								printa(professores); // Exibe todos os professores cadastrados
 								do{
 									try{
 										error = false;
@@ -217,7 +217,7 @@ public class menu{
 									}
 								}while(error);
 								proffound = false;
-								for(curso_professor prof : professores){// Verifica a existência do professor na lista de professores
+								for(curso_professor prof : professores){ // Verifica a existência do professor na lista de professores
 									if(prof.get_codigo() == codigo){ 
 										proffound = true;
 										do{
@@ -543,11 +543,11 @@ public class menu{
 										break;
 									}
 								}
-								if(!check){//Se não achar printa
+								if(!check){// Se não achar printa
 									System.out.println("\n\tAluno não encontrado.");
 								}
 								break;
-							case 4: // Aualizar aluno
+							case 4: // Atualizar aluno
 								System.out.println("\n\tAtualização de aluno");
 								printa(alunos);// Exibe todos os aluno cadastrados
 								do{
@@ -625,7 +625,7 @@ public class menu{
 															error = true;
 														}
 													}while(error);
-													do{//Confere se já existe algum aluno com o novo código inserido;
+													do{//Confere se já existe algum aluno com o novo código inserido
 														check = false;
 														for(aluno st : alunos){
 															if(codigo == st.get_codigo()){
@@ -649,7 +649,7 @@ public class menu{
 													stud.set_codigo(codigo);
 													System.out.println("\n\tCódigo atualizado com sucesso!");
 													break;
-												case 4://Remove Discipĺina 
+												case 4:// Remove Discipĺina 
 													System.out.println("\n\tDesvínculo de disciplina do aluno");
 													do{
 														try{
@@ -1158,7 +1158,7 @@ public class menu{
 								for(i = 0; i < disciplinas.size(); i++){
 									aux_disc = disciplinas.get(i);
 									if(codigo == aux_disc.get_codigo()){
-										disciplinas.remove(i);// Removendo a displina da lista
+										disciplinas.remove(i);// Removendo a disciplina da lista
 										check = true;
 										break;
 									}
@@ -1178,7 +1178,7 @@ public class menu{
 									}
 								}
 								break;
-							case 4: // Aualizar disciplina
+							case 4: // Atualizar disciplina
 								System.out.println("\n\tAtualização de disciplina");
 								printa(disciplinas);// Exibe todas as disciplinas cadastradas
 								do{
