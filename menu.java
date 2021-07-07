@@ -4,7 +4,7 @@
 import java.util.*;
 
 public class menu{
-	
+
 	public static void main(String[] args){
 		Scanner input = new Scanner(System.in);
 		int optionprincipal = 0,optionsecundaria = 0, codigo = 0, carga_horaria = 0, i = 0, procurar = 0, aux_att = 0;
@@ -14,7 +14,7 @@ public class menu{
 		LinkedList <curso_professor> professores = new LinkedList<curso_professor>();
 		LinkedList <curso_professor> cursos = new LinkedList<curso_professor>();
 		LinkedList <aluno> alunos = new LinkedList<aluno>();
-		
+
 		aluno aux_aluno = null;
 		curso_professor aux_professor = null, aux_curso = null;
 		disciplina aux_disc = null;
@@ -117,7 +117,7 @@ public class menu{
 								codigo = -1;
 								while(codigo != 0 && disciplinas.size() != 0){
 									System.out.println();
-									printa(disciplinas); // Lista as disciplinas existentes na lista de disciplinas 
+									printa(disciplinas); // Lista as disciplinas existentes na lista de disciplinas
 									do{
 										try{
 											error = false;
@@ -133,7 +133,7 @@ public class menu{
 									if(codigo != 0){
 										subfound = false;
 										for(disciplina discip : disciplinas){// Verifica a existência da disciplina na lista de disciplinas
-											if(discip.get_codigo() == codigo){ 
+											if(discip.get_codigo() == codigo){
 												aux_professor.adiciona_disc(discip);
 												subfound = true;
 												break;
@@ -164,7 +164,7 @@ public class menu{
 								}while(error);
 								proffound = false;
 								for(curso_professor prof : professores){// Verifica a existência do professor na lista de professores
-									if(prof.get_codigo() == codigo){ 
+									if(prof.get_codigo() == codigo){
 										prof.exibe();
 										proffound = true;
 										break;
@@ -218,7 +218,7 @@ public class menu{
 								}while(error);
 								proffound = false;
 								for(curso_professor prof : professores){ // Verifica a existência do professor na lista de professores
-									if(prof.get_codigo() == codigo){ 
+									if(prof.get_codigo() == codigo){
 										proffound = true;
 										do{
 											do{
@@ -318,7 +318,7 @@ public class menu{
 														}
 													}while(error);
 													for(disciplina d : disciplinas){
-														if(d.get_codigo() == codigo){	
+														if(d.get_codigo() == codigo){
 															prof.remove_disc(d);
 															break;
 														}
@@ -341,7 +341,7 @@ public class menu{
 														}
 													}while(error);
 													for(disciplina d: disciplinas){
-														if(d.get_codigo() == codigo){	
+														if(d.get_codigo() == codigo){
 															prof.adiciona_disc(d);
 															break;
 														}
@@ -477,7 +477,7 @@ public class menu{
 													System.out.println("\n\tDisciplina não encontrada no curso!");
 												}
 												else{
-													aux_aluno.adiciona_disc(aux_disc); 
+													aux_aluno.adiciona_disc(aux_disc);
 												}
 											}
 										}
@@ -510,7 +510,7 @@ public class menu{
 								}while(error);
 								studentfound = false;
 								for(aluno stud : alunos){// Verifica a existência do aluno na lista de alunos
-									if(stud.get_codigo() == codigo){ 
+									if(stud.get_codigo() == codigo){
 										stud.exibe();
 										studentfound = true;
 										break;
@@ -564,7 +564,7 @@ public class menu{
 								}while(error);
 								studentfound = false;
 								for(aluno stud : alunos){// Verifica a existência do aluno na lista de alunos
-									if(stud.get_codigo() == codigo){ 
+									if(stud.get_codigo() == codigo){
 										studentfound = true;
 										do{
 											do{
@@ -649,7 +649,7 @@ public class menu{
 													stud.set_codigo(codigo);
 													System.out.println("\n\tCódigo atualizado com sucesso!");
 													break;
-												case 4:// Remove Discipĺina 
+												case 4:// Remove Discipĺina
 													System.out.println("\n\tDesvínculo de disciplina do aluno");
 													do{
 														try{
@@ -664,7 +664,7 @@ public class menu{
 														}
 													}while(error);
 													for(disciplina d : disciplinas){
-														if(d.get_codigo() == codigo){	
+														if(d.get_codigo() == codigo){
 															stud.remove_disc(d);
 															break;
 														}
@@ -687,7 +687,7 @@ public class menu{
 														}
 													}while(error);
 													for(disciplina d: disciplinas){
-														if(d.get_codigo() == codigo){	
+														if(d.get_codigo() == codigo){
 															stud.adiciona_disc(d);
 															break;
 														}
@@ -709,7 +709,7 @@ public class menu{
 														}
 													}while(error);
 													for(curso_professor c: cursos){
-														if(c.get_codigo() == codigo){	
+														if(c.get_codigo() == codigo){
 															stud.set_curso(c);
 															break;
 														}
@@ -802,7 +802,7 @@ public class menu{
 								codigo = -1;
 								while(codigo != 0 && disciplinas.size() != 0){
 									System.out.println();
-									printa(disciplinas);// Lista as disciplinas existentes na lista de disciplinas 
+									printa(disciplinas);// Lista as disciplinas existentes na lista de disciplinas
 									do{
 										try{
 											error = false;
@@ -818,7 +818,7 @@ public class menu{
 									if(codigo != 0){
 										subfound = false;
 										for(disciplina discip : disciplinas){// Verifica a existência da disciplina na lista de disciplinas
-											if(discip.get_codigo() == codigo){ 
+											if(discip.get_codigo() == codigo){
 												aux_curso.adiciona_disc(discip);
 												subfound = true;
 												break;
@@ -912,7 +912,7 @@ public class menu{
 											clear();
 											switch(aux_att){
 												case 1: // Atualiza nome
-													System.out.println("\n\tAtualização de nome");	
+													System.out.println("\n\tAtualização de nome");
 													System.out.print("\n\tInsira o novo nome:\n\t->");
 													nome = input.nextLine();
 													nome = input.nextLine();
@@ -990,7 +990,7 @@ public class menu{
 														}
 													}while(error);
 													for(disciplina d : disciplinas){
-														if(d.get_codigo() == codigo){	
+														if(d.get_codigo() == codigo){
 															curso.remove_disc(d);
 															break;
 														}
@@ -1013,7 +1013,7 @@ public class menu{
 														}
 													}while(error);
 													for(disciplina d : disciplinas){
-														if(d.get_codigo() == codigo){	
+														if(d.get_codigo() == codigo){
 															curso.adiciona_disc(d);
 															break;
 														}
@@ -1129,7 +1129,7 @@ public class menu{
 								}while(error);
 								subfound = false;
 								for(disciplina disc : disciplinas){// Verifica a existência da disciplina na lista de disciplinas
-									if(disc.get_codigo() == codigo){ 
+									if(disc.get_codigo() == codigo){
 										disc.exibe();
 										subfound = true;
 										break;
@@ -1195,7 +1195,7 @@ public class menu{
 								}while(error);
 								subfound = false;
 								for(disciplina disc : disciplinas){// Verifica a existência da disciplina na lista de disciplinas
-									if(disc.get_codigo() == codigo){ 
+									if(disc.get_codigo() == codigo){
 										subfound = true;
 										procurar = disc.get_codigo();
 										do{

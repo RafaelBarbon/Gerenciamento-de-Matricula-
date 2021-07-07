@@ -2,10 +2,10 @@
 //Rafael Silva Barbon 							19243633
 
 public class disciplina {
-    
+
     private String nome;
     private int carga_horaria, codigo;
-	
+
 	// Construtores
     public disciplina(String nome, int carga_horaria, int codigo){
         this.nome = nome;
@@ -53,7 +53,7 @@ public class disciplina {
         System.out.printf("\n\tCódigo: %d.", get_codigo());
         System.out.printf("\n\tCarga Horária: %d horas.\n", get_carga_horaria());
 	}
-	
+
 	// Método que exibe o nome seguido do código
     public String toString(){
         return String.format("%s - %d", this.get_nome(), this.get_codigo());

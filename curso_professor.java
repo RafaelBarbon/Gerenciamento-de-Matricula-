@@ -3,12 +3,12 @@
 
 import java.util.*;
 
-public class curso_professor extends disciplina{//Herança 
+public class curso_professor extends disciplina{//Herança
 
     //Lista de objetos do tipo D
-    private LinkedList <disciplina> disciplinas = new LinkedList<disciplina>(); //Lista ligada de disciplinas 
-    
-    //Contrutores 
+    private LinkedList <disciplina> disciplinas = new LinkedList<disciplina>(); //Lista ligada de disciplinas
+
+    //Contrutores
     public curso_professor(String nome, int carga_horaria, int codigo){
         super(nome, carga_horaria, codigo);
     }
@@ -58,7 +58,7 @@ public class curso_professor extends disciplina{//Herança
 	protected int get_size_disc(){
 		return this.disciplinas.size();
 	}
-	
+
 	// Atualização de um objeto da lista de disciplinas
 	public void att_disc(disciplina disc, int codigo){
 		for(disciplina d : disciplinas){
@@ -72,7 +72,7 @@ public class curso_professor extends disciplina{//Herança
 
 	// Exibição das informações da lista de disciplinas
     protected void exibe_disc(){
-        for(disciplina aux : disciplinas){ 
+        for(disciplina aux : disciplinas){
             aux.exibe();
         }
     }
@@ -95,7 +95,7 @@ public class curso_professor extends disciplina{//Herança
 			System.out.println();
 		}
 	}
-	
+
 	// Exibição das informações de um professor
 	public void exibe(){
         System.out.printf("\n\tNome: %s.", get_nome());
@@ -111,7 +111,7 @@ public class curso_professor extends disciplina{//Herança
 	}
 
 	// Método que procura se a disciplina selecionada existe no curso
-    public disciplina procura_discp_curso(int codigo){// Procura se a disciplina existe no curso 
+    public disciplina procura_discp_curso(int codigo){// Procura se a disciplina existe no curso
         for(disciplina disc : this.disciplinas){
             if(disc.get_codigo() == codigo){
                 return disc;
@@ -121,10 +121,10 @@ public class curso_professor extends disciplina{//Herança
     }
 
 	// Método que retorna todos os nomes e códigos de disciplinas
-    public void lista_disc(){ 
-        for(disciplina aux : this.disciplinas){ 
+    public void lista_disc(){
+        for(disciplina aux : this.disciplinas){
             System.out.printf("\t%s",aux);
         }
 	}
-	
+
 }
